@@ -1,0 +1,3080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI RESEARCH AGENT 🧠⚡ — A Progressive Journey from Web to Autonomous Agents | GrowSphere</title>
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* ==========================================================================
+       GROWSPHERE DESIGN SYSTEM — FULL PRESENTATION STYLESHEET
+       - Clean White Background (#FFFFFF), Dark Accent (#0A0A0A)
+       - Brand Green Accent (#6CC04A / #4DAF2D)
+       - Rounded 20-28px Cards, Thin Borders (#ECECEC), Subtle Shadows
+       - Generous Whitespace, Minimal Text, Visual Diagrams
+       ========================================================================== */
+
+    :root {
+      --bg-page: #FFFFFF;
+      --bg-surface: #FFFFFF;
+      --bg-card: #F9FBFA;
+      --bg-card-hover: #F2F7F0;
+      --bg-subtle: #F3F6F4;
+
+      --brand-green: #6CC04A;
+      --brand-green-dark: #4DAF2D;
+      --brand-green-light: rgba(108, 192, 74, 0.12);
+      --brand-green-glow: rgba(108, 192, 74, 0.4);
+
+      --color-black: #0A0A0A;
+      --color-dark: #14181E;
+      --text-main: #0A0A0A;
+      --text-muted: #4B5563;
+      --text-dim: #8C96A3;
+
+      --border-main: #E5EAE7;
+      --border-card: #ECECEC;
+      --border-green: rgba(108, 192, 74, 0.4);
+
+      --accent-blue: #2563EB;
+      --accent-purple: #7C3AED;
+      --accent-amber: #D97706;
+      --accent-red: #DC2626;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-card: 22px;
+      --radius-large: 28px;
+      --radius-pill: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 20px 40px rgba(10, 10, 10, 0.08);
+
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.theme-dark {
+      --bg-page: #080B10;
+      --bg-surface: #0E131C;
+      --bg-card: #131A26;
+      --bg-card-hover: #182232;
+      --bg-subtle: #18202E;
+
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+
+      --border-main: #202A3B;
+      --border-card: #243044;
+      --border-green: rgba(108, 192, 74, 0.45);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top Progress Bar */
+    .top-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--border-main);
+      z-index: 1000;
+    }
+
+    .top-progress-fill {
+      height: 100%;
+      width: 2.3%;
+      background: linear-gradient(90deg, var(--brand-green), #4DAF2D);
+      box-shadow: 0 0 12px var(--brand-green-glow);
+      transition: width 0.3s var(--ease-smooth);
+    }
+
+    /* Floating Top Right Controls */
+    .floating-top-controls {
+      position: fixed;
+      top: 14px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-main);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    body.theme-dark .timer-pill {
+      background: rgba(14, 19, 28, 0.85);
+    }
+
+    .timer-pill:hover {
+      color: var(--brand-green-dark);
+      border-color: var(--brand-green);
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-main);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s var(--ease-smooth);
+    }
+
+    body.theme-dark .icon-btn {
+      background: rgba(14, 19, 28, 0.85);
+    }
+
+    .icon-btn:hover {
+      background: var(--brand-green-light);
+      color: var(--brand-green-dark);
+      border-color: var(--brand-green);
+      transform: translateY(-2px);
+    }
+
+    /* FULLSCREEN SLIDE VIEWPORT */
+    .deck-viewport {
+      position: absolute;
+      inset: 0;
+      bottom: 56px;
+      width: 100vw;
+      height: calc(100vh - 56px);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 36px 56px 16px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(0.98) translateY(10px);
+      transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth), visibility 0.3s;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      transform: scale(1) translateY(0);
+    }
+
+    /* FULL-SCREEN RAW IMAGE SLIDES (SLIDES 1-5) */
+    .slide.raw-image-slide {
+      padding: 0 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+    }
+
+    body.theme-dark .slide.raw-image-slide {
+      background: #080B10;
+    }
+
+    .raw-slide-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Slide Header & Titles */
+    .slide-header {
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--brand-green-dark);
+      margin-bottom: 4px;
+    }
+
+    .section-badge.pulse-badge {
+      background: rgba(217, 119, 6, 0.12);
+      color: var(--accent-amber);
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.8vw, 36px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.6px;
+      color: var(--text-main);
+    }
+
+    .slide-desc {
+      font-size: clamp(13px, 1.25vw, 16px);
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 960px;
+      line-height: 1.4;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .slide-content.align-center {
+      align-items: center;
+    }
+
+    .text-center {
+      text-align: center;
+      align-items: center;
+    }
+
+    /* Sequential Glowing Flowchart Animations */
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(108, 192, 74, 0);
+        border-color: var(--border-card);
+      }
+      50% {
+        box-shadow: 0 0 18px rgba(108, 192, 74, 0.45);
+        border-color: var(--brand-green);
+        transform: translateY(-2px) scale(1.01);
+      }
+    }
+
+    .slide.active .flow-node:nth-child(1),
+    .slide.active .pipe-card:nth-child(1),
+    .slide.active .flow-step-h:nth-child(1) {
+      animation: glowPulse 2.4s ease-in-out 0.2s infinite;
+    }
+
+    .slide.active .flow-node:nth-child(3),
+    .slide.active .pipe-card:nth-child(3),
+    .slide.active .flow-step-h:nth-child(3) {
+      animation: glowPulse 2.4s ease-in-out 0.8s infinite;
+    }
+
+    .slide.active .flow-node:nth-child(5),
+    .slide.active .pipe-card:nth-child(5),
+    .slide.active .flow-step-h:nth-child(5) {
+      animation: glowPulse 2.4s ease-in-out 1.4s infinite;
+    }
+
+    /* Animation Utilities */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
+    }
+
+    .slide.active .animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.05s; }
+    .delay-2 { transition-delay: 0.10s; }
+    .delay-3 { transition-delay: 0.15s; }
+    .delay-4 { transition-delay: 0.20s; }
+    .delay-5 { transition-delay: 0.25s; }
+
+    .green-text {
+      color: var(--brand-green-dark);
+      font-weight: 800;
+    }
+
+    .text-green { color: var(--brand-green-dark) !important; }
+    .text-blue { color: var(--accent-blue) !important; }
+    .text-amber { color: var(--accent-amber) !important; }
+    .text-red { color: var(--accent-red) !important; }
+    .text-muted { color: var(--text-muted); }
+    .font-bold { font-weight: 800; }
+    .mt-1 { margin-top: 4px; }
+    .mt-2 { margin-top: 8px; }
+    .mt-3 { margin-top: 12px; }
+
+    /* Browser Mockup Component */
+    .browser-mockup {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-main);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .browser-url {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-main);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .browser-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Grids & Cards */
+    .grid-2-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .grid-3-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4-col {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .grow-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), border-color 0.25s;
+    }
+
+    .grow-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--brand-green);
+    }
+
+    /* Vertical Flow Nodes */
+    .step-flow-v {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .flow-node {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s var(--ease-smooth), border-color 0.2s;
+    }
+
+    .flow-node:hover {
+      transform: translateX(4px);
+      border-color: var(--brand-green);
+    }
+
+    .flow-node.active-node {
+      border-color: var(--brand-green);
+      background: var(--brand-green-light);
+    }
+
+    .node-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .bg-green-soft { background: var(--brand-green-light); color: var(--brand-green-dark); }
+    .bg-black-pill { background: var(--color-black); color: #FFFFFF; }
+    .bg-blue-soft { background: rgba(37, 99, 235, 0.12); color: var(--accent-blue); }
+    .bg-amber-soft { background: rgba(217, 119, 6, 0.12); color: var(--accent-amber); }
+    .bg-purple-soft { background: rgba(124, 58, 237, 0.12); color: var(--accent-purple); }
+    .bg-red-soft { background: rgba(220, 38, 38, 0.12); color: var(--accent-red); }
+
+    .node-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .node-text strong {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .node-text span {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .flow-line-v {
+      width: 2px;
+      height: 6px;
+      background: var(--border-main);
+      margin-left: 28px;
+    }
+
+    /* Black Rounded Banners & Quotes */
+    .quote-card {
+      padding: 18px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .quote-card.black-banner {
+      background: var(--color-black);
+      color: #FFFFFF;
+      border: 1px solid var(--color-black);
+    }
+
+    .quote-card.black-banner .highlight-quote {
+      color: #FFFFFF;
+    }
+
+    .quote-card.black-banner .text-muted {
+      color: #A0AAB5;
+    }
+
+    .highlight-quote {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--text-main);
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .highlight-quote strong {
+      color: var(--brand-green-dark);
+    }
+
+    .quote-card.black-banner .highlight-quote strong {
+      color: var(--brand-green);
+    }
+
+    .quote-icon {
+      color: var(--brand-green);
+      margin-bottom: 4px;
+    }
+
+    .tip-box {
+      padding: 10px 14px;
+      background: var(--brand-green-light);
+      border-left: 4px solid var(--brand-green);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--brand-green-dark);
+      text-transform: uppercase;
+    }
+
+    .tip-box p {
+      font-size: 12px;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    /* Trio Pillars */
+    .trio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .pillar-card {
+      padding: 18px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s var(--ease-smooth), border-color 0.2s;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--brand-green);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .tech-badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .tech-badge.orange { background: rgba(249, 115, 22, 0.15); color: #F97316; }
+    .tech-badge.blue { background: rgba(37, 99, 235, 0.15); color: #2563EB; }
+    .tech-badge.yellow { background: rgba(217, 119, 6, 0.15); color: #D97706; }
+    .tech-badge.green { background: var(--brand-green-light); color: var(--brand-green-dark); }
+    .tech-badge.purple { background: rgba(124, 58, 237, 0.15); color: #7C3AED; }
+
+    .pillar-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+    }
+
+    .pillar-items li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pillar-items i {
+      color: var(--brand-green-dark);
+      width: 14px;
+      height: 14px;
+    }
+
+    .formula-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      font-size: 13.5px;
+      margin-top: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Terminal & Code Blocks */
+    .terminal-box {
+      background: #0E131C;
+      color: #F8FAFC;
+      border-radius: var(--radius-card);
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      line-height: 1.5;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #202A3B;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #202A3B;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+      color: var(--text-dim);
+      font-size: 10.5px;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .terminal-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .code-hl-green { color: #6CC04A; font-weight: 700; }
+    .code-hl-blue { color: #60A5FA; }
+    .code-hl-amber { color: #FBBF24; }
+    .code-hl-dim { color: #94A3B8; }
+
+    /* Horizontal Flow Steps */
+    .backend-flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .flow-step-h {
+      flex: 1;
+      padding: 12px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-step-h.highlight-step {
+      border-color: var(--brand-green);
+      background: var(--brand-green-light);
+    }
+
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 14px;
+    }
+
+    /* Superpowers Grid */
+    .superpowers-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .superpower-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s var(--ease-smooth);
+    }
+
+    .superpower-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--brand-green);
+    }
+
+    .sp-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sp-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-subtle);
+      color: var(--text-dim);
+    }
+
+    .sp-code-hint {
+      padding: 4px 8px;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--brand-green-dark);
+      border: 1px solid var(--border-main);
+    }
+
+    /* Master Blueprint Diagram */
+    .master-arch-canvas {
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .arch-level {
+      width: 100%;
+      max-width: 660px;
+    }
+
+    .level-actor {
+      text-align: center;
+      padding: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brand-green-dark);
+    }
+
+    .level-box {
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-main);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .arch-level-split {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .split-box {
+      padding: 8px 6px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-main);
+    }
+
+    /* 11-Step Sprint Grid */
+    .timeline-schedule {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .t-block {
+      padding: 10px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .t-block.highlight-t {
+      border-color: var(--brand-green);
+      background: var(--brand-green-light);
+    }
+
+    .t-time {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--brand-green-dark);
+    }
+
+    .t-task {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* CLEAN BOTTOM FOOTER BAR */
+    .deck-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-main);
+      z-index: 100;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    body.theme-dark .deck-footer {
+      background: rgba(14, 19, 28, 0.92);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      padding: 8px 18px;
+      background: var(--color-black);
+      border: 1px solid var(--color-black);
+      border-radius: var(--radius-pill);
+      color: #FFFFFF;
+      font-family: var(--font-main);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s var(--ease-smooth);
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--brand-green-dark);
+      border-color: var(--brand-green-dark);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .slide-indicator {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 65px;
+      text-align: center;
+    }
+
+    .current-section-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--brand-green-dark);
+      padding: 4px 14px;
+      background: var(--brand-green-light);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-pill);
+    }
+
+    .keyboard-hints {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    kbd {
+      padding: 2px 6px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-main);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    /* Modals */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      padding: 30px 40px;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    body.theme-dark .grid-overlay {
+      background: rgba(8, 11, 16, 0.95);
+    }
+
+    .grid-overlay.active { display: flex; }
+
+    .grid-overlay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-grid-btn, .close-notes-btn {
+      background: transparent;
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-grid-btn:hover, .close-notes-btn:hover {
+      color: var(--accent-red);
+      border-color: var(--accent-red);
+    }
+
+    .grid-thumbnails {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .thumb-card {
+      padding: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 120px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .thumb-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--brand-green);
+      box-shadow: var(--shadow-md);
+    }
+
+    .thumb-card.active-thumb {
+      border-color: var(--brand-green);
+      background: var(--brand-green-light);
+    }
+
+    .thumb-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .thumb-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .notes-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .notes-modal.active { display: flex; }
+
+    .notes-modal-content {
+      width: 100%;
+      max-width: 620px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .notes-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-main);
+      padding-bottom: 10px;
+    }
+
+    .notes-body {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-main);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Progress Bar -->
+  <div class="top-progress-bar">
+    <div class="top-progress-fill" id="progressBar"></div>
+  </div>
+
+  <!-- Floating Top Controls -->
+  <div class="floating-top-controls">
+    <div class="timer-pill" id="presentationTimer" title="Click to start/pause session timer (Key: T)">
+      <i data-lucide="clock"></i> <span id="timerDisplay">00:00</span>
+    </div>
+    <button class="icon-btn" id="btnThemeToggle" title="Toggle Light / Dark Mode (Key: L)">
+      <i data-lucide="moon" id="themeIcon"></i>
+    </button>
+    <button class="icon-btn" id="btnNotes" title="Toggle Speaker Notes (Key: N)">
+      <i data-lucide="file-text"></i>
+    </button>
+    <button class="icon-btn" id="btnGrid" title="Slide Overview Grid (Key: G)">
+      <i data-lucide="layout-grid"></i>
+    </button>
+    <button class="icon-btn" id="btnFullscreen" title="Toggle Fullscreen (Key: F)">
+      <i data-lucide="maximize"></i>
+    </button>
+  </div>
+
+  <!-- FULLSCREEN SLIDE VIEWPORT -->
+  <main class="deck-viewport" id="deckViewport">
+
+    <!-- ==========================================================================
+         PART 0: GROWSPHERE & SPEAKERS
+         ========================================================================== -->
+
+    <!-- SLIDE 1: GROWSPHERE OVERVIEW -->
+    <section class="slide raw-image-slide active" data-slide="1" data-section="GrowSphere">
+      <img src="assets/growsphere_overview.png" alt="GrowSphere — Learn. Build. Grow." class="raw-slide-image" />
+    </section>
+
+    <!-- SLIDE 2: SPEAKER 1 — DEV KANOJIYA -->
+    <section class="slide raw-image-slide" data-slide="2" data-section="GrowSphere">
+      <img src="assets/dev_kanojiya.png" alt="Dev Kanojiya — Full Stack Developer & Speaker" class="raw-slide-image" />
+    </section>
+
+    <!-- SLIDE 3: SPEAKER 2 — ASHISH PARAB -->
+    <section class="slide raw-image-slide" data-slide="3" data-section="GrowSphere">
+      <img src="assets/ashish_parab.png" alt="Ashish Parab — Software Developer & Speaker" class="raw-slide-image" />
+    </section>
+
+    <!-- SLIDE 4: SPEAKER 3 — ADITYA SABNIS -->
+    <section class="slide raw-image-slide" data-slide="4" data-section="GrowSphere">
+      <img src="assets/aditya_sabnis.jpg" alt="Aditya Sabnis — AI Full-Stack Engineer & Speaker" class="raw-slide-image" />
+    </section>
+
+    <!-- SLIDE 5: LEAD / CO-LEAD — DEVENDRA -->
+    <section class="slide raw-image-slide" data-slide="5" data-section="GrowSphere">
+      <img src="assets/devendra.jpeg" alt="Devendra — GrowSphere Lead & Organizer" class="raw-slide-image" />
+    </section>
+
+    <!-- SLIDE 6: HERO TITLE SLIDE -->
+    <section class="slide" data-slide="6" data-section="Workshop Kickoff">
+      <div class="slide-header text-center">
+        <span class="section-badge pulse-badge animate-in delay-1">
+          <i data-lucide="sparkles"></i> GrowSphere Technical Workshop
+        </span>
+      </div>
+
+      <div class="slide-content text-center">
+        <div class="hero-center-box" style="max-width:920px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:14px;">
+          <h1 class="slide-title animate-in delay-2" style="font-size:clamp(30px, 4.2vw, 56px); font-weight:900; letter-spacing:-1px;">
+            AI RESEARCH <span class="green-text">AGENT</span> 🧠⚡
+          </h1>
+
+          <h2 class="slide-desc animate-in delay-3" style="font-size:clamp(16px, 1.5vw, 20px); font-weight:500;">
+            A progressive journey from web fundamentals to autonomous multi-agent research.
+          </h2>
+
+          <div class="formula-banner animate-in delay-4" style="font-size:13px; gap:8px;">
+            <span>Web</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>React</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>FastAPI</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>LLM</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>RAG</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>Embeddings</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>ChromaDB</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span>Tavily</span> <i data-lucide="chevron-right" class="text-green"></i>
+            <span class="green-text font-bold">LangGraph 🚀</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 01: WEB FUNDAMENTALS (SPEAKER 01 // DEV KANOJIYA)
+         ========================================================================== -->
+
+    <!-- SLIDE 7 (USER SLIDE 01): EVERY AI APP STARTS WITH AN INTERFACE -->
+    <section class="slide" data-slide="7" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // WEB FUNDAMENTALS (DEV KANOJIYA)</span>
+        <h2 class="slide-title">Before we build an AI agent, <span class="green-text">let's understand the app.</span></h2>
+        <p class="slide-desc">An AI application is still an application. It starts with an interface on a user's screen.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <!-- Mockup -->
+        <div class="browser-mockup animate-in delay-1">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <span style="background:#FF5F56;"></span>
+              <span style="background:#FFBD2E;"></span>
+              <span style="background:#27C93F;"></span>
+            </div>
+            <div class="browser-url">https://research-agent.app</div>
+          </div>
+          <div class="browser-body">
+            <div style="font-size:14px; font-weight:800; color:var(--brand-green-dark); display:flex; align-items:center; gap:6px;">
+              <i data-lucide="sparkles"></i> AI RESEARCHER
+            </div>
+            <div style="padding:14px; background:var(--bg-subtle); border:1px dashed var(--border-main); border-radius:var(--radius-md); text-align:center; font-size:12px; color:var(--text-muted);">
+              <i data-lucide="upload-cloud" style="margin-bottom:4px;"></i><br/>Upload your document (PDF, TXT)
+            </div>
+            <div style="display:flex; gap:8px;">
+              <input type="text" placeholder="Ask a research question..." disabled style="flex:1; padding:8px 12px; border:1px solid var(--border-card); border-radius:var(--radius-sm); font-size:12px; background:var(--bg-card);" />
+              <button disabled style="padding:8px 14px; background:var(--brand-green-dark); color:#fff; border:none; border-radius:var(--radius-sm); font-size:12px; font-weight:700;">Research</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Layer Hierarchy -->
+        <div class="info-stack animate-in delay-2">
+          <div class="step-flow-v">
+            <div class="flow-node active-node">
+              <div class="node-icon bg-green-soft"><i data-lucide="layout"></i></div>
+              <div class="node-text">
+                <strong>1. INTERFACE</strong>
+                <span>What the user sees & clicks</span>
+              </div>
+            </div>
+            <div class="flow-line-v"></div>
+            <div class="flow-node">
+              <div class="node-icon bg-blue-soft"><i data-lucide="cpu"></i></div>
+              <div class="node-text">
+                <strong>2. LOGIC</strong>
+                <span>Processes user inputs & API routing</span>
+              </div>
+            </div>
+            <div class="flow-line-v"></div>
+            <div class="flow-node">
+              <div class="node-icon bg-amber-soft"><i data-lucide="database"></i></div>
+              <div class="node-text">
+                <strong>3. DATA</strong>
+                <span>Your private files & live web facts</span>
+              </div>
+            </div>
+            <div class="flow-line-v"></div>
+            <div class="flow-node">
+              <div class="node-icon bg-black-pill"><i data-lucide="sparkles"></i></div>
+              <div class="node-text">
+                <strong>4. AI ENGINE</strong>
+                <span>Synthesizes grounded answers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 (USER SLIDE 02): WHAT DOES THE BROWSER ACTUALLY DO? -->
+    <section class="slide" data-slide="8" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // WEB FUNDAMENTALS</span>
+        <h2 class="slide-title">What does the <span class="green-text">browser</span> actually do?</h2>
+        <p class="slide-desc">The browser takes text files and turns them into visual, clickable software on your screen.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="file-code-2"></i></div>
+            <strong>YOUR CODE</strong>
+            <span class="text-muted" style="font-size:12px;">HTML + CSS + JavaScript</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-green-soft"><i data-lucide="globe"></i></div>
+            <strong>THE BROWSER</strong>
+            <span class="text-muted" style="font-size:12px;">Chrome, Safari, Edge, Brave</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-black-pill"><i data-lucide="sparkles"></i></div>
+            <strong>LIVING WEBSITE</strong>
+            <span class="text-muted" style="font-size:12px;">Interactive pixels & animations</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "The browser is an execution engine. It parses text files line-by-line and renders a graphical interface you can interact with."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 (USER SLIDE 03): THE THREE BUILDING BLOCKS -->
+    <section class="slide" data-slide="9" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // WEB FUNDAMENTALS</span>
+        <h2 class="slide-title">The <span class="green-text">three building blocks</span> of the web</h2>
+        <p class="slide-desc">Every interface on the internet is built from three foundational tools.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="trio-grid animate-in delay-1">
+          <div class="pillar-card">
+            <div>
+              <span class="tech-badge orange">HTML</span>
+              <h3 style="font-size:18px; margin-top:4px;">STRUCTURE</h3>
+              <p class="text-muted" style="font-size:13px; font-style:italic; margin-top:6px;">"What exists on the page?"</p>
+            </div>
+            <p style="font-size:12.5px; color:var(--text-muted);">Defines headings, upload boxes, text inputs, and buttons.</p>
+            <div class="sp-code-hint">Structure</div>
+          </div>
+
+          <div class="pillar-card">
+            <div>
+              <span class="tech-badge blue">CSS</span>
+              <h3 style="font-size:18px; margin-top:4px;">STYLE</h3>
+              <p class="text-muted" style="font-size:13px; font-style:italic; margin-top:6px;">"How does it look & feel?"</p>
+            </div>
+            <p style="font-size:12.5px; color:var(--text-muted);">Defines spacing, typography, colors, dark mode, and layouts.</p>
+            <div class="sp-code-hint">Design</div>
+          </div>
+
+          <div class="pillar-card">
+            <div>
+              <span class="tech-badge yellow">JavaScript</span>
+              <h3 style="font-size:18px; margin-top:4px;">BEHAVIOR</h3>
+              <p class="text-muted" style="font-size:13px; font-style:italic; margin-top:6px;">"What does it do?"</p>
+            </div>
+            <p style="font-size:12.5px; color:var(--text-muted);">Handles clicks, communicates with AI servers, and updates the screen.</p>
+            <div class="sp-code-hint">Interaction</div>
+          </div>
+        </div>
+
+        <div class="formula-banner animate-in delay-2">
+          <span>HTML (Structure)</span>
+          <i data-lucide="plus" class="text-green"></i>
+          <span>CSS (Design)</span>
+          <i data-lucide="plus" class="text-green"></i>
+          <span>JavaScript (Interaction)</span>
+          <i data-lucide="arrow-right" class="text-green"></i>
+          <span class="green-text font-bold">Interactive Web Application ⚡</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 (USER SLIDE 04): HTML = STRUCTURE -->
+    <section class="slide" data-slide="10" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // WEB FUNDAMENTALS</span>
+        <h2 class="slide-title">HTML = <span class="green-text">Structure</span></h2>
+        <p class="slide-desc">HTML defines the raw elements and items that exist on a webpage.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <!-- Wireframe Box -->
+        <div class="grow-card animate-in delay-1" style="background:#FFFFFF; border:2px dashed var(--border-main);">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="padding:6px 12px; background:var(--bg-subtle); border-radius:4px; font-family:var(--font-mono); font-size:11px; font-weight:700;">HEADER &bull; AI Research App</div>
+            <div style="padding:8px 12px; background:var(--bg-subtle); border-radius:4px; font-family:var(--font-mono); font-size:11px; font-weight:700;">TITLE &bull; Research Across Documents</div>
+            <div style="padding:16px 12px; background:var(--bg-subtle); border-radius:4px; font-family:var(--font-mono); font-size:11px; text-align:center; color:var(--text-muted);">[ DOCUMENT UPLOAD ZONE ]</div>
+            <div style="display:flex; gap:6px;">
+              <div style="flex:1; padding:8px; background:var(--bg-subtle); border-radius:4px; font-family:var(--font-mono); font-size:11px;">[ INPUT: Type question... ]</div>
+              <div style="padding:8px 12px; background:var(--bg-subtle); border-radius:4px; font-family:var(--font-mono); font-size:11px; font-weight:700;">[ BUTTON ]</div>
+            </div>
+            <div style="padding:12px; background:var(--bg-subtle); border-radius:4px; font-family:var(--font-mono); font-size:11px;">[ RESULT CARD ]</div>
+          </div>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="box" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:16px;">The Blueprint of the Web</h3>
+            <p class="highlight-quote">
+              "HTML is like the structural frame of a building. <strong>It defines what exists, but not how it looks.</strong>"
+            </p>
+          </div>
+
+          <div class="tip-box mt-3">
+            <div class="tip-badge"><i data-lucide="zap"></i> NO CODE OVERLOAD</div>
+            <p>You don't need to memorize dozens of HTML tags. Just understand that HTML creates the boxes that hold content.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 (USER SLIDE 05): CSS = APPEARANCE -->
+    <section class="slide" data-slide="11" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // WEB FUNDAMENTALS</span>
+        <h2 class="slide-title">CSS = <span class="green-text">Appearance & Layout</span></h2>
+        <p class="slide-desc">CSS transforms raw wireframes into usable, beautifully styled software.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <!-- Polished Box -->
+        <div class="grow-card animate-in delay-1" style="background:#FFFFFF; border:1px solid var(--brand-green); box-shadow:var(--shadow-md);">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:900; color:var(--brand-green-dark); font-size:14px;">GrowSphere AI</span>
+              <span class="tech-badge green">v1.0 Live</span>
+            </div>
+            <div style="padding:14px; background:var(--brand-green-light); border:1px dashed var(--brand-green); border-radius:var(--radius-md); text-align:center; font-size:12px; font-weight:700; color:var(--brand-green-dark);">
+              <i data-lucide="file-up"></i> Drop your 100-page PDF here
+            </div>
+            <div style="display:flex; gap:6px;">
+              <input type="text" value="Summarize key findings..." disabled style="flex:1; padding:8px 12px; border:1px solid var(--border-card); border-radius:var(--radius-pill); font-size:12px; background:var(--bg-card);" />
+              <button disabled style="padding:8px 16px; background:var(--color-black); color:#fff; border:none; border-radius:var(--radius-pill); font-size:12px; font-weight:700;">Research</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="grow-card">
+            <h3 style="font-size:16px; margin-bottom:8px;"><i data-lucide="palette" class="text-green"></i> The CSS Polish Formula</h3>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.45;">
+              <strong>Structure + Spacing + Typography + Colors + Layout</strong>
+            </p>
+            <div class="quote-card black-banner mt-3">
+              <p class="highlight-quote">
+                "CSS makes the interface usable, accessible, and visually understandable."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 (USER SLIDE 06): JAVASCRIPT = BEHAVIOR -->
+    <section class="slide" data-slide="12" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // WEB FUNDAMENTALS</span>
+        <h2 class="slide-title">JavaScript = <span class="green-text">Behavior</span></h2>
+        <p class="slide-desc">JavaScript allows the page to respond to user actions and talk to external servers.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="mouse-pointer-click"></i></div>
+            <strong>1. USER CLICKS</strong>
+            <span class="text-muted" style="font-size:12px;">[ RESEARCH ]</span>
+            <p style="font-size:11px; margin-top:2px;">Event triggered</p>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-amber-soft"><i data-lucide="loader-2"></i></div>
+            <strong>2. JAVASCRIPT ACTS</strong>
+            <span class="text-muted" style="font-size:12px;">"Loading..."</span>
+            <p style="font-size:11px; margin-top:2px;">Sends API request</p>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-green-soft"><i data-lucide="sparkles"></i></div>
+            <strong>3. ANSWER APPEARS</strong>
+            <span class="text-muted" style="font-size:12px;">Streamed text</span>
+            <p style="font-size:11px; margin-top:2px;">Screen updates live</p>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Without JavaScript, a button is just a picture on screen. <strong>JavaScript connects button clicks to real actions.</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 (USER SLIDE 07): BUT REAL APPLICATIONS GET BIG -->
+    <section class="slide" data-slide="13" data-section="01 // Web">
+      <div class="slide-header">
+        <span class="section-badge">01 // THE COMPLEXITY TRAP</span>
+        <h2 class="slide-title">But real applications <span class="green-text">get big very quickly.</span></h2>
+        <p class="slide-desc">What happens when your AI app has 8 different interactive features?</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <!-- One file mess -->
+        <div class="grow-card animate-in delay-1">
+          <span class="tech-badge" style="background:rgba(220,38,38,0.15); color:var(--accent-red);">THE NAIVE APPROACH</span>
+          <h3 style="font-size:16px; margin:6px 0;">One Giant 3,000-Line HTML File</h3>
+          <ul class="pillar-items" style="margin-top:8px;">
+            <li><i data-lucide="file-code" class="text-red"></i> Header & Navigation</li>
+            <li><i data-lucide="file-code" class="text-red"></i> Upload Dropzone & Progress</li>
+            <li><i data-lucide="file-code" class="text-red"></i> Document List & Delete Buttons</li>
+            <li><i data-lucide="file-code" class="text-red"></i> Search Bar & Question Input</li>
+            <li><i data-lucide="file-code" class="text-red"></i> Streamed Answer Card</li>
+            <li><i data-lucide="file-code" class="text-red"></i> Citations & Source Links</li>
+          </ul>
+        </div>
+
+        <!-- The Solution -->
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="layers" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:16px;">The Modular Solution</h3>
+            <p class="highlight-quote">
+              "Don't build one giant unmaintainable page. <strong>Break your UI into reusable Lego blocks!</strong>"
+            </p>
+          </div>
+
+          <div class="formula-banner mt-3" style="background:var(--brand-green-light); border-color:var(--brand-green);">
+            <span class="green-text font-bold">The Solution: Reusable UI Components (React) 🚀</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 02: REACT (SPEAKER 01 // DEV KANOJIYA)
+         ========================================================================== -->
+
+    <!-- SLIDE 14 (USER SLIDE 08): MEET REACT -->
+    <section class="slide" data-slide="14" data-section="02 // React">
+      <div class="slide-header">
+        <span class="section-badge">02 // REACT (DEV KANOJIYA)</span>
+        <h2 class="slide-title">React = Build UI from <span class="green-text">components</span></h2>
+        <p class="slide-desc">Instead of building one giant page, React lets us build reusable, isolated pieces.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grow-card animate-in delay-1" style="padding:22px;">
+          <h3 style="font-size:15px; margin-bottom:12px;"><i data-lucide="folder-tree" class="text-green"></i> The Component Tree Hierarchy</h3>
+          <div style="font-family:var(--font-mono); font-size:13px; line-height:1.8; color:var(--text-main);">
+            <strong>APPLICATION ROOT (&lt;App /&gt;)</strong><br/>
+            ├── &lt;Header /&gt; <span class="text-muted">// Logo, title, session timer</span><br/>
+            ├── &lt;UploadZone /&gt; <span class="text-muted">// Drag & drop PDF files</span><br/>
+            ├── &lt;DocumentList /&gt; <span class="text-muted">// Shows active indexed documents</span><br/>
+            ├── &lt;QuestionInput /&gt; <span class="text-muted">// Query text box & submit button</span><br/>
+            ├── &lt;AnswerCard /&gt; <span class="text-muted">// Streamed AI text</span><br/>
+            └── &lt;CitationList /&gt; <span class="text-muted">// Page numbers & verified web links</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Each component is isolated. If you fix the Upload component, you never break the Answer component!"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 (USER SLIDE 09): WHAT IS A COMPONENT? -->
+    <section class="slide" data-slide="15" data-section="02 // React">
+      <div class="slide-header">
+        <span class="section-badge">02 // REACT</span>
+        <h2 class="slide-title">What is a <span class="green-text">component?</span></h2>
+        <p class="slide-desc">A component is a reusable, self-contained piece of user interface.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grid-4-col animate-in delay-1">
+          <div class="grow-card text-center">
+            <span class="tech-badge blue">COMPONENT 1</span>
+            <h4 class="mt-1">&lt;Header /&gt;</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">App brand & stats</p>
+          </div>
+
+          <div class="grow-card text-center">
+            <span class="tech-badge green">COMPONENT 2</span>
+            <h4 class="mt-1">&lt;Upload /&gt;</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">File dropzone</p>
+          </div>
+
+          <div class="grow-card text-center">
+            <span class="tech-badge orange">COMPONENT 3</span>
+            <h4 class="mt-1">&lt;Question /&gt;</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">Input & submit</p>
+          </div>
+
+          <div class="grow-card text-center">
+            <span class="tech-badge purple">COMPONENT 4</span>
+            <h4 class="mt-1">&lt;Answer /&gt;</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">Result & sources</p>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Combine small components together like Lego blocks, and you get a complete, resilient web application."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 (USER SLIDE 10): REACT HAS STATE -->
+    <section class="slide" data-slide="16" data-section="02 // React">
+      <div class="slide-header">
+        <span class="section-badge">02 // REACT</span>
+        <h2 class="slide-title">React has <span class="green-text">State</span> (The UI's Memory)</h2>
+        <p class="slide-desc">State is information that the interface remembers as the user interacts.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <!-- Visual State Progression -->
+        <div class="grow-card animate-in delay-1">
+          <h3 style="font-size:15px; margin-bottom:10px;"><i data-lucide="refresh-cw" class="text-green"></i> State Update in Action</h3>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="padding:10px 14px; background:var(--bg-subtle); border-radius:var(--radius-md); font-family:var(--font-mono); font-size:12px;">
+              Initial State: <strong>Documents: 0</strong>
+            </div>
+            <div style="text-align:center; color:var(--brand-green-dark); font-size:12px; font-weight:700;">
+              ↓ User uploads annual_report.pdf
+            </div>
+            <div style="padding:10px 14px; background:var(--brand-green-light); border:1px solid var(--brand-green); border-radius:var(--radius-md); font-family:var(--font-mono); font-size:12px;">
+              Updated State: <strong>Documents: 1</strong> (UI re-renders!)
+            </div>
+          </div>
+        </div>
+
+        <!-- State Examples -->
+        <div class="info-stack animate-in delay-2">
+          <div class="grow-card">
+            <h4 style="font-size:14px; margin-bottom:8px;">Real State Examples in Our AI App:</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-family:var(--font-mono); font-size:11.5px;">
+              <div class="sp-code-hint">isLoading: true/false</div>
+              <div class="sp-code-hint">question: string</div>
+              <div class="sp-code-hint">documents: list</div>
+              <div class="sp-code-hint">answer: string</div>
+            </div>
+          </div>
+
+          <div class="tip-box mt-2">
+            <div class="tip-badge"><i data-lucide="zap"></i> NO SYNTAX WORRIES</div>
+            <p>You don't need to know React hooks or syntax right now. Just remember: <strong>State = The UI's memory.</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 17 (USER SLIDE 11): NOW WE HAVE A FRONTEND -->
+    <section class="slide" data-slide="17" data-section="02 // React">
+      <div class="slide-header">
+        <span class="section-badge">02 // FRONTEND COMPLETE</span>
+        <h2 class="slide-title">Now we have a frontend. <span class="green-text">Where does the work happen?</span></h2>
+        <p class="slide-desc">The browser looks great, but it cannot run AI models or search documents on its own.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="user"></i></div>
+            <strong>USER</strong>
+            <span class="text-muted" style="font-size:12px;">Clicks & inputs</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-green-soft"><i data-lucide="atom"></i></div>
+            <strong>REACT</strong>
+            <span class="text-muted" style="font-size:12px;">Component UI</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-black-pill"><i data-lucide="help-circle"></i></div>
+            <strong>THE BIG QUESTION</strong>
+            <span class="text-muted" style="font-size:12px;">Where is the brain?</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "The browser is just a window. <strong>To connect to AI and private files, we need a Backend!</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 03: FRONTEND → BACKEND (SPEAKER 01 // DEV KANOJIYA)
+         ========================================================================== -->
+
+    <!-- SLIDE 18 (USER SLIDE 12): THE FRONTEND CANNOT DO EVERYTHING -->
+    <section class="slide" data-slide="18" data-section="03 // Backend">
+      <div class="slide-header">
+        <span class="section-badge">03 // FRONTEND → BACKEND (DEV KANOJIYA)</span>
+        <h2 class="slide-title">The frontend <span class="green-text">cannot do everything</span></h2>
+        <p class="slide-desc">Why secret API keys and heavy AI logic must never live inside the browser.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <div class="grow-card animate-in delay-1">
+          <h3 style="font-size:15px; margin-bottom:10px;"><i data-lucide="target" class="text-green"></i> What React Wants to Do:</h3>
+          <ul class="pillar-items">
+            <li><i data-lucide="search"></i> Search 50MB PDF documents</li>
+            <li><i data-lucide="cpu"></i> Call Groq LLM inference</li>
+            <li><i data-lucide="globe"></i> Search the live web with Tavily</li>
+            <li><i data-lucide="database"></i> Query vector embeddings</li>
+          </ul>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="shield-alert" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:15px;">Why It Can't Live in Browser:</h3>
+            <p class="highlight-quote">
+              "The browser is completely public. <strong>Never put secret API keys or private databases in frontend code.</strong>"
+            </p>
+          </div>
+
+          <div class="formula-banner mt-2">
+            <span>REACT</span> <i data-lucide="arrow-right" class="text-green"></i> <span>API</span> <i data-lucide="arrow-right" class="text-green"></i> <span class="green-text font-bold">BACKEND</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 19 (USER SLIDE 13): WHAT IS AN API? -->
+    <section class="slide" data-slide="19" data-section="03 // Backend">
+      <div class="slide-header">
+        <span class="section-badge">03 // FRONTEND → BACKEND</span>
+        <h2 class="slide-title">What is an <span class="green-text">API?</span> The Restaurant Analogy</h2>
+        <p class="slide-desc">An API is the secure bridge between different parts of an application.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="user"></i></div>
+            <strong>YOU</strong>
+            <span class="text-muted" style="font-size:12px;">React UI</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-green-soft"><i data-lucide="concierge-bell"></i></div>
+            <strong>WAITER</strong>
+            <span class="text-muted" style="font-size:12px;">API (HTTP)</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-amber-soft"><i data-lucide="chef-hat"></i></div>
+            <strong>KITCHEN</strong>
+            <span class="text-muted" style="font-size:12px;">Backend Server</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-black-pill"><i data-lucide="utensils"></i></div>
+            <strong>FOOD</strong>
+            <span class="text-muted" style="font-size:12px;">AI Result</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "An API is a bridge. The customer doesn't enter the kitchen to cook; the waiter carries orders back and forth safely."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 20 (USER SLIDE 14): REQUEST → RESPONSE -->
+    <section class="slide" data-slide="20" data-section="03 // Backend">
+      <div class="slide-header">
+        <span class="section-badge">03 // FRONTEND → BACKEND</span>
+        <h2 class="slide-title">Request → <span class="green-text">Response (JSON)</span></h2>
+        <p class="slide-desc">How frontend and backend communicate using structured JSON data packets.</p>
+      </div>
+
+      <div class="slide-content grid-2-col">
+        <!-- Request JSON -->
+        <div class="terminal-box animate-in delay-1">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span style="background:#FF5F56;"></span>
+              <span style="background:#FFBD2E;"></span>
+              <span style="background:#27C93F;"></span>
+            </div>
+            <span>React Request → POST /research</span>
+          </div>
+          <pre><code>{
+  <span class="code-hl-green">"question"</span>: <span class="code-hl-amber">"What is RAG?"</span>
+}</code></pre>
+          <div style="margin-top:8px; font-size:11px; color:var(--text-dim);">
+            ↑ React sends this JSON packet to FastAPI
+          </div>
+        </div>
+
+        <!-- Response JSON -->
+        <div class="terminal-box animate-in delay-2">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span style="background:#FF5F56;"></span>
+              <span style="background:#FFBD2E;"></span>
+              <span style="background:#27C93F;"></span>
+            </div>
+            <span>FastAPI Response → HTTP 200 OK</span>
+          </div>
+          <pre><code>{
+  <span class="code-hl-green">"answer"</span>: <span class="code-hl-amber">"RAG retrieves private facts..."</span>
+}</code></pre>
+          <div style="margin-top:8px; font-size:11px; color:var(--text-dim);">
+            ↑ FastAPI returns verified answer to React
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 21 (USER SLIDE 15): MEET FASTAPI -->
+    <section class="slide" data-slide="21" data-section="03 // Backend">
+      <div class="slide-header">
+        <span class="section-badge">03 // FRONTEND → BACKEND</span>
+        <h2 class="slide-title">Meet <span class="green-text">FastAPI</span></h2>
+        <p class="slide-desc">FastAPI is the high-performance Python framework we use to build our backend API.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="code-2"></i></div>
+            <strong>Python</strong>
+            <span class="text-muted" style="font-size:12px;">AI & Data packages</span>
+          </div>
+
+          <span style="font-size:20px; font-weight:800; color:var(--text-dim);">+</span>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-green-soft"><i data-lucide="zap"></i></div>
+            <strong>FastAPI</strong>
+            <span class="text-muted" style="font-size:12px;">High-speed web server</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-black-pill"><i data-lucide="server"></i></div>
+            <strong>BACKEND API</strong>
+            <span class="text-muted" style="font-size:12px;">Ready for AI Agents</span>
+          </div>
+        </div>
+
+        <div class="formula-banner animate-in delay-2 mt-2">
+          <span>React (Frontend)</span>
+          <i data-lucide="arrow-right" class="text-green"></i>
+          <span class="green-text font-bold">FastAPI (Backend)</span>
+          <i data-lucide="arrow-right" class="text-green"></i>
+          <span>AI Engine</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 22 (USER SLIDE 16): OUR FIRST AI APP -->
+    <section class="slide" data-slide="22" data-section="03 // Backend">
+      <div class="slide-header">
+        <span class="section-badge">03 // COMPLETE LOOP</span>
+        <h2 class="slide-title">Our first complete <span class="green-text">AI application</span></h2>
+        <p class="slide-desc">How all pieces connect from the user's click to the model's answer.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <strong>1. USER</strong>
+            <p style="font-size:11px;">Types query</p>
+          </div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h">
+            <strong>2. REACT</strong>
+            <p style="font-size:11px;">Captures text</p>
+          </div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h highlight-step">
+            <strong>3. FASTAPI</strong>
+            <p style="font-size:11px;">Calls model</p>
+          </div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h">
+            <strong>4. LLM</strong>
+            <p style="font-size:11px;">Infers text</p>
+          </div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h">
+            <strong>5. REACT</strong>
+            <p style="font-size:11px;">Renders screen</p>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Critical Question: <strong>What happens if the LLM doesn't know our private PDF?</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 04: LLM → RAG (SPEAKER 02 // ASHISH PARAB)
+         ========================================================================== -->
+
+    <!-- SLIDE 23 (USER SLIDE 17): MEET THE LLM -->
+    <section class="slide" data-slide="23" data-section="04 // RAG">
+      <div class="slide-header">
+        <span class="section-badge">04 // LLM → RAG (ASHISH PARAB)</span>
+        <h2 class="slide-title">Meet the <span class="green-text">LLM</span> (Large Language Model)</h2>
+        <p class="slide-desc">A model trained on vast internet text that can understand and generate language.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="help-circle"></i></div>
+            <strong>Question</strong>
+            <span class="text-muted" style="font-size:12px;">"Explain photosynthesis"</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-green-soft"><i data-lucide="brain"></i></div>
+            <strong>LLM</strong>
+            <span class="text-muted" style="font-size:12px;">Groq Llama-3 / Gemini</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-black-pill"><i data-lucide="sparkles"></i></div>
+            <strong>Answer</strong>
+            <span class="text-muted" style="font-size:12px;">Clear generated text</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "The catch: <strong>The LLM does NOT automatically know your private company documents or research notes.</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 24 (USER SLIDE 18): THE 100-PAGE DOCUMENT PROBLEM -->
+    <section class="slide" data-slide="24" data-section="04 // RAG">
+      <div class="slide-header">
+        <span class="section-badge">04 // LLM LIMITS</span>
+        <h2 class="slide-title">The <span class="green-text">100-Page Document</span> Problem</h2>
+        <p class="slide-desc">Why we can't just paste an entire 100-page PDF into the LLM prompt.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="superpowers-grid-6 animate-in delay-1">
+          <div class="superpower-card">
+            <div class="sp-top"><span class="sp-tag text-red">LIMIT 1</span><i data-lucide="maximize-2" class="text-red"></i></div>
+            <strong>Context Ceilings</strong>
+            <p class="text-muted" style="font-size:11.5px;">Models have strict token limits. 100 pages will overflow the prompt.</p>
+          </div>
+
+          <div class="superpower-card">
+            <div class="sp-top"><span class="sp-tag text-red">LIMIT 2</span><i data-lucide="dollar-sign" class="text-red"></i></div>
+            <strong>Exponential Cost</strong>
+            <p class="text-muted" style="font-size:11.5px;">Sending 200,000 tokens on every question burns dollars quickly.</p>
+          </div>
+
+          <div class="superpower-card">
+            <div class="sp-top"><span class="sp-tag text-red">LIMIT 3</span><i data-lucide="clock" class="text-red"></i></div>
+            <strong>Huge Latency</strong>
+            <p class="text-muted" style="font-size:11.5px;">Processing 100 pages takes 20+ seconds before output starts.</p>
+          </div>
+
+          <div class="superpower-card">
+            <div class="sp-top"><span class="sp-tag text-red">LIMIT 4</span><i data-lucide="eye-off" class="text-red"></i></div>
+            <strong>Hallucinations</strong>
+            <p class="text-muted" style="font-size:11.5px;">LLMs miss details in the middle and make up believable lies.</p>
+          </div>
+
+          <div class="superpower-card">
+            <div class="sp-top"><span class="sp-tag text-green">SOLUTION</span><i data-lucide="sparkles" class="text-green"></i></div>
+            <strong>Selective Retrieval</strong>
+            <p class="text-muted" style="font-size:11.5px;">Find only the <strong>top 3 relevant paragraphs</strong>.</p>
+          </div>
+
+          <div class="superpower-card">
+            <div class="sp-top"><span class="sp-tag text-green">SPEED</span><i data-lucide="zap" class="text-green"></i></div>
+            <strong>Fast & Accurate</strong>
+            <p class="text-muted" style="font-size:11.5px;">Sub-second answers with exact page citations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 25 (USER SLIDE 19): THE SOLUTION: RAG -->
+    <section class="slide" data-slide="25" data-section="04 // RAG">
+      <div class="slide-header">
+        <span class="section-badge">04 // RAG INTUITION</span>
+        <h2 class="slide-title">The Solution: <span class="green-text">RAG (Retrieval-Augmented Generation)</span></h2>
+        <p class="slide-desc">The open-book exam technique for guaranteed factual accuracy.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="file-text"></i></div>
+            <strong>YOUR PDF</strong>
+            <span class="text-muted" style="font-size:12px;">Private document</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-green-soft"><i data-lucide="search"></i></div>
+            <strong>RETRIEVE</strong>
+            <span class="text-muted" style="font-size:12px;">Exact 2 paragraphs</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-amber-soft"><i data-lucide="brain"></i></div>
+            <strong>LLM</strong>
+            <span class="text-muted" style="font-size:12px;">Reads the facts</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-black-pill"><i data-lucide="check-circle-2"></i></div>
+            <strong>ANSWER</strong>
+            <span class="text-muted" style="font-size:12px;">Grounded truth</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "RAG = An open-book exam. Instead of forcing the AI to guess from memory, <strong>hand it the exact textbook page before it answers!</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 26 (USER SLIDE 20): HOW RAG WORKS -->
+    <section class="slide" data-slide="26" data-section="04 // RAG">
+      <div class="slide-header">
+        <span class="section-badge">04 // RAG PIPELINE</span>
+        <h2 class="slide-title">How <span class="green-text">RAG</span> works in 6 steps</h2>
+        <p class="slide-desc">From raw document to semantic lookup and final grounded response.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1" style="font-size:11px;">
+          <div class="flow-step-h"><strong>1. Document</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>2. Chunks</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>3. Embeddings</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h highlight-step"><strong>4. Vector DB</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>5. Search</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>6. LLM Answer</strong></div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Next Question: <strong>How do we search documents by meaning instead of exact keywords?</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 05: EMBEDDINGS (SPEAKER 02 // ASHISH PARAB)
+         ========================================================================== -->
+
+    <!-- SLIDE 27 (USER SLIDE 21): WHY CAN'T WE JUST SEARCH WORDS? -->
+    <section class="slide" data-slide="27" data-section="05 // Embeddings">
+      <div class="slide-header">
+        <span class="section-badge">05 // EMBEDDINGS (ASHISH PARAB)</span>
+        <h2 class="slide-title">Why can't we just <span class="green-text">search keywords?</span></h2>
+        <p class="slide-desc">Keyword matching fails when humans use synonyms and related ideas.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <div class="grow-card animate-in delay-1">
+          <span class="tech-badge blue">USER QUESTION</span>
+          <h3 style="font-size:16px; margin:6px 0;">"How can I make my application faster?"</h3>
+          <div style="height:1px; background:var(--border-main); margin:12px 0;"></div>
+          <span class="tech-badge green">DOCUMENT SENTENCE</span>
+          <h3 style="font-size:16px; margin:6px 0;">"Response-time optimization reduces latency."</h3>
+          <div class="tip-box mt-2" style="background:rgba(220,38,38,0.1); border-left-color:var(--accent-red);">
+            <p style="color:var(--accent-red); font-weight:700;">Zero matching words! Keyword search finds nothing.</p>
+          </div>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="sparkles" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:16px;">We Need Semantic Search</h3>
+            <p class="highlight-quote">
+              "The words are different, <strong>but the meaning is identical.</strong> We must search by mathematical meaning."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 28 (USER SLIDE 22): WHAT IS AN EMBEDDING? -->
+    <section class="slide" data-slide="28" data-section="05 // Embeddings">
+      <div class="slide-header">
+        <span class="section-badge">05 // EMBEDDINGS</span>
+        <h2 class="slide-title">What is an embedding? <span class="green-text">Meaning into numbers</span></h2>
+        <p class="slide-desc">Computers don't understand words; they understand multi-dimensional coordinates.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <div class="grow-card animate-in delay-1">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="padding:10px 14px; background:var(--bg-subtle); border-radius:var(--radius-md); font-size:13px; font-weight:700;">
+              "How does RAG work?"
+            </div>
+            <div style="text-align:center; color:var(--brand-green-dark); font-size:12px; font-weight:800;">
+              ↓ EMBEDDING MODEL (Gemini / OpenAI)
+            </div>
+            <div class="terminal-box">
+              <pre><code>[ <span class="code-hl-green">0.21</span>, <span class="code-hl-blue">-0.43</span>, <span class="code-hl-amber">0.82</span>, <span class="code-hl-dim">...</span>, <span class="code-hl-green">0.11</span> ]</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="binary" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:16px;">Core Law of Embeddings</h3>
+            <p class="highlight-quote">
+              "Embeddings represent human meaning as numbers in multi-dimensional space."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 29 (USER SLIDE 23): VECTOR SEARCH -->
+    <section class="slide" data-slide="29" data-section="05 // Embeddings">
+      <div class="slide-header">
+        <span class="section-badge">05 // VECTOR SEARCH</span>
+        <h2 class="slide-title">Vector Search in <span class="green-text">2D Space</span></h2>
+        <p class="slide-desc">Similar meaning leads to similar representation and instant retrieval.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grow-card animate-in delay-1" style="padding:20px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="padding:16px; background:var(--brand-green-light); border:2px solid var(--brand-green); border-radius:var(--radius-card); text-align:center;">
+              <span class="tech-badge green">CLOSE TOGETHER (SIMILAR MEANING)</span>
+              <h4 class="mt-2">"RAG Question"</h4>
+              <p style="font-size:12px; color:var(--text-muted);">Distance: 0.95 &bull; "Document about retrieval"</p>
+              <p style="font-size:12px; color:var(--text-muted);">Distance: 0.92 &bull; "Document about embeddings"</p>
+            </div>
+
+            <div style="padding:16px; background:rgba(220,38,38,0.06); border:1px solid rgba(220,38,38,0.3); border-radius:var(--radius-card); text-align:center;">
+              <span class="tech-badge" style="background:rgba(220,38,38,0.15); color:var(--accent-red);">FAR AWAY (DIFFERENT TOPIC)</span>
+              <h4 class="mt-2">"Pizza Recipe"</h4>
+              <p style="font-size:12px; color:var(--text-muted);">Distance: 0.04 &bull; "Football Match"</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="formula-banner animate-in delay-2 mt-2">
+          <span>Similar Meaning</span>
+          <i data-lucide="arrow-right" class="text-green"></i>
+          <span>Similar Vector Coordinates</span>
+          <i data-lucide="arrow-right" class="text-green"></i>
+          <span class="green-text font-bold">Nearest Neighbor Retrieval in &lt;5ms ⚡</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 30 (USER SLIDE 24): VECTOR DATABASE & CHROMADB -->
+    <section class="slide" data-slide="30" data-section="05 // Embeddings">
+      <div class="slide-header">
+        <span class="section-badge">05 // VECTOR DATABASE</span>
+        <h2 class="slide-title">Meet <span class="green-text">ChromaDB</span>: The Vector Database</h2>
+        <p class="slide-desc">Where we store embeddings and execute blazing-fast similarity searches.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h">
+            <div class="step-circle bg-blue-soft"><i data-lucide="binary"></i></div>
+            <strong>EMBEDDINGS</strong>
+            <span class="text-muted" style="font-size:12px;">Vector lists</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h highlight-step">
+            <div class="step-circle bg-green-soft"><i data-lucide="database"></i></div>
+            <strong>CHROMADB</strong>
+            <span class="text-muted" style="font-size:12px;">Local Vector DB</span>
+          </div>
+
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+
+          <div class="flow-step-h">
+            <div class="step-circle bg-black-pill"><i data-lucide="search"></i></div>
+            <strong>SIMILARITY SEARCH</strong>
+            <span class="text-muted" style="font-size:12px;">Top 3 chunks</span>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "ChromaDB stores millions of vector embeddings locally and performs cosine similarity in under 5 milliseconds."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 06: TOOLS (SPEAKER 03 // ADITYA SABNIS)
+         ========================================================================== -->
+
+    <!-- SLIDE 31 (USER SLIDE 25): WHAT IF THE ANSWER ISN'T IN THE PDF? -->
+    <section class="slide" data-slide="31" data-section="06 // Tools">
+      <div class="slide-header">
+        <span class="section-badge">06 // TOOLS (ADITYA SABNIS)</span>
+        <h2 class="slide-title">What if the answer <span class="green-text">isn't in the PDF?</span></h2>
+        <p class="slide-desc">What happens when the user asks about today's live news or competitor pricing?</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <div class="grow-card animate-in delay-1">
+          <span class="tech-badge orange">REAL USER QUESTION</span>
+          <h3 style="font-size:16px; margin:8px 0;">"What's happening in AI today?"</h3>
+          <p class="text-muted" style="font-size:13px; line-height:1.45;">
+            The static PDF on your laptop was created last month. It cannot possibly know what happened this morning.
+          </p>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="globe" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:16px;">We Need Live Web Search</h3>
+            <p class="highlight-quote">
+              "When private documents are not enough, <strong>the AI must reach out to the live internet in real time.</strong>"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 32 (USER SLIDE 26): GIVE THE AI A TOOL & TAVILY -->
+    <section class="slide" data-slide="32" data-section="06 // Tools">
+      <div class="slide-header">
+        <span class="section-badge">06 // TOOLS</span>
+        <h2 class="slide-title">Give the AI <span class="green-text">tools to act</span></h2>
+        <p class="slide-desc">Tools allow the AI application to interact with external systems.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grid-3-col animate-in delay-1">
+          <div class="pillar-card">
+            <span class="tech-badge green">TOOL 1</span>
+            <h4>ChromaDB</h4>
+            <p class="text-muted" style="font-size:12px;">Search private uploaded documents</p>
+          </div>
+
+          <div class="pillar-card" style="border:2px solid var(--brand-green);">
+            <span class="tech-badge blue">TOOL 2 (NEW)</span>
+            <h4>Tavily Web Search</h4>
+            <p class="text-muted" style="font-size:12px;">Real-time search engine built for AI</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge purple">TOOL 3</span>
+            <h4>Python Calculator</h4>
+            <p class="text-muted" style="font-size:12px;">Exact arithmetic and statistics</p>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Meet <strong>Tavily</strong>: A search engine created specifically for AI agents to retrieve clean markdown facts in real time."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 07: AGENTS (SPEAKER 03 // ADITYA SABNIS)
+         ========================================================================== -->
+
+    <!-- SLIDE 33 (USER SLIDE 27): LLM VS RAG VS AGENT -->
+    <section class="slide" data-slide="33" data-section="07 // Agents">
+      <div class="slide-header">
+        <span class="section-badge">07 // AGENTS (ADITYA SABNIS)</span>
+        <h2 class="slide-title">LLM vs RAG vs <span class="green-text">AI Agent</span></h2>
+        <p class="slide-desc">Understanding the 3 evolutionary stages of modern AI applications.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="trio-grid animate-in delay-1">
+          <div class="pillar-card">
+            <span class="tech-badge orange">LEVEL 1</span>
+            <h3 style="font-size:18px;">LLM</h3>
+            <p style="font-size:13px; color:var(--text-main); font-weight:700;">Generates an answer</p>
+            <p class="text-muted" style="font-size:12px;">Relies purely on fixed training memory.</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge blue">LEVEL 2</span>
+            <h3 style="font-size:18px;">RAG</h3>
+            <p style="font-size:13px; color:var(--text-main); font-weight:700;">Retrieves information</p>
+            <p class="text-muted" style="font-size:12px;">Searches private documents before answering.</p>
+          </div>
+
+          <div class="pillar-card" style="border:2px solid var(--brand-green); background:var(--brand-green-light);">
+            <span class="tech-badge green">LEVEL 3</span>
+            <h3 style="font-size:18px;">AI AGENT</h3>
+            <p style="font-size:13px; color:var(--brand-green-dark); font-weight:800;">Decides what to do</p>
+            <p class="text-muted" style="font-size:12px;">Dynamically picks tools and self-corrects.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 34 (USER SLIDE 28): WHAT MAKES AN AGENT? -->
+    <section class="slide" data-slide="34" data-section="07 // Agents">
+      <div class="slide-header">
+        <span class="section-badge">07 // AGENTS</span>
+        <h2 class="slide-title">What makes an agent? <span class="green-text">The Decision Cycle</span></h2>
+        <p class="slide-desc">An agent doesn't follow a hardcoded script; it evaluates results and decides its next move.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1" style="font-size:11px;">
+          <div class="flow-step-h"><strong>1. QUESTION</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h highlight-step"><strong>2. DECIDE</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>3. ACTION</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>4. OBSERVE</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h highlight-step"><strong>5. DECIDE AGAIN</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>6. ANSWER</strong></div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Notice the key word: <strong>DECISION</strong>. The agent chooses which tool to call based on the user's specific intent."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 08: LANGGRAPH (SPEAKER 03 // ADITYA SABNIS)
+         ========================================================================== -->
+
+    <!-- SLIDE 35 (USER SLIDE 29): NOW WE HAVE A WORKFLOW -->
+    <section class="slide" data-slide="35" data-section="08 // LangGraph">
+      <div class="slide-header">
+        <span class="section-badge">08 // LANGGRAPH (ADITYA SABNIS)</span>
+        <h2 class="slide-title">Now we have a <span class="green-text">workflow</span></h2>
+        <p class="slide-desc">Complex research requires multi-step orchestration with branching and evaluation.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h"><strong>START</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>UNDERSTAND</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h highlight-step"><strong>SEARCH</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>CHECK RESULTS</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>ANSWER</strong></div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "This is a workflow. To build reliable stateful workflows in Python, we use <strong>LangGraph</strong>."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 36 (USER SLIDE 30): LANGGRAPH -->
+    <section class="slide" data-slide="36" data-section="08 // LangGraph">
+      <div class="slide-header">
+        <span class="section-badge">08 // LANGGRAPH</span>
+        <h2 class="slide-title">LangGraph = <span class="green-text">State + Nodes + Edges</span></h2>
+        <p class="slide-desc">LangGraph lets us represent stateful multi-step AI systems as clean graphs.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="trio-grid animate-in delay-1">
+          <div class="pillar-card">
+            <span class="tech-badge blue">1. STATE</span>
+            <h3 style="font-size:18px;">Memory</h3>
+            <p class="text-muted" style="font-size:12.5px;">A shared dictionary that tracks question, retrieved facts, and answers.</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge green">2. NODES</span>
+            <h3 style="font-size:18px;">Functions</h3>
+            <p class="text-muted" style="font-size:12.5px;">Python functions that perform real work (retrieve, search, generate).</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge yellow">3. EDGES</span>
+            <h3 style="font-size:18px;">Pathways</h3>
+            <p class="text-muted" style="font-size:12.5px;">Connections that decide where the workflow moves next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 37 (USER SLIDE 31): NODES -->
+    <section class="slide" data-slide="37" data-section="08 // LangGraph">
+      <div class="slide-header">
+        <span class="section-badge">08 // LANGGRAPH NODES</span>
+        <h2 class="slide-title">Nodes: The <span class="green-text">work units</span></h2>
+        <p class="slide-desc">A node is a Python function that performs a specific task in the graph.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grid-3-col animate-in delay-1">
+          <div class="grow-card text-center">
+            <span class="tech-badge blue">NODE 1</span>
+            <h4 class="mt-1">Analyze Question</h4>
+          </div>
+          <div class="grow-card text-center">
+            <span class="tech-badge green">NODE 2</span>
+            <h4 class="mt-1">Search Documents</h4>
+          </div>
+          <div class="grow-card text-center">
+            <span class="tech-badge orange">NODE 3</span>
+            <h4 class="mt-1">Search Web</h4>
+          </div>
+          <div class="grow-card text-center">
+            <span class="tech-badge purple">NODE 4</span>
+            <h4 class="mt-1">Evaluate Results</h4>
+          </div>
+          <div class="grow-card text-center">
+            <span class="tech-badge green">NODE 5</span>
+            <h4 class="mt-1">Generate Answer</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 38 (USER SLIDE 32): EDGES -->
+    <section class="slide" data-slide="38" data-section="08 // LangGraph">
+      <div class="slide-header">
+        <span class="section-badge">08 // LANGGRAPH EDGES</span>
+        <h2 class="slide-title">Edges: <span class="green-text">Connecting the steps</span></h2>
+        <p class="slide-desc">An edge connects one node to the next, passing the shared state forward.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="backend-flow-diagram animate-in delay-1">
+          <div class="flow-step-h"><strong>ANALYZE</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>SEARCH</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h"><strong>EVALUATE</strong></div>
+          <i data-lucide="arrow-right" class="pill-arrow"></i>
+          <div class="flow-step-h highlight-step"><strong>ANSWER</strong></div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "Edges define how data flows through your system in a clean, reproducible graph."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 39 (USER SLIDE 33): CONDITIONAL EDGES -->
+    <section class="slide" data-slide="39" data-section="08 // LangGraph">
+      <div class="slide-header">
+        <span class="section-badge">08 // CONDITIONAL EDGES</span>
+        <h2 class="slide-title">Conditional Edges: <span class="green-text">The Decision Router</span></h2>
+        <p class="slide-desc">The workflow makes a dynamic decision about where to go next.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grow-card animate-in delay-1" style="padding:22px;">
+          <div style="display:flex; align-items:center; justify-content:center; gap:20px;">
+            <div style="padding:14px 20px; background:var(--color-black); color:#fff; border-radius:var(--radius-pill); font-weight:800; font-size:13px;">
+              QUESTION → ROUTER
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="padding:10px 18px; background:var(--brand-green-light); border:1px solid var(--brand-green); border-radius:var(--radius-md); font-size:12.5px; font-weight:700;">
+                ├── Route A: ChromaDB (Private PDFs)
+              </div>
+              <div style="padding:10px 18px; background:rgba(37,99,235,0.12); border:1px solid var(--accent-blue); border-radius:var(--radius-md); font-size:12.5px; font-weight:700;">
+                └── Route B: Tavily (Live Web Search)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "The router inspects the question. If it asks for company data → ChromaDB. If it asks for today's news → Tavily."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 40 (USER SLIDE 34): THE RETRY LOOP -->
+    <section class="slide" data-slide="40" data-section="08 // LangGraph">
+      <div class="slide-header">
+        <span class="section-badge">08 // RETRY LOOP</span>
+        <h2 class="slide-title">The <span class="green-text">Self-Correcting Retry Loop</span></h2>
+        <p class="slide-desc">Why LangGraph cyclic workflows make AI systems robust and reliable.</p>
+      </div>
+
+      <div class="slide-content grid-2-col align-center">
+        <div class="step-flow-v animate-in delay-1">
+          <div class="flow-node">
+            <div class="node-icon bg-blue-soft"><i data-lucide="search"></i></div>
+            <div class="node-text"><strong>1. SEARCH</strong><span>Execute initial retrieval</span></div>
+          </div>
+          <div class="flow-node">
+            <div class="node-icon bg-amber-soft"><i data-lucide="check"></i></div>
+            <div class="node-text"><strong>2. EVALUATE</strong><span>Enough relevant information?</span></div>
+          </div>
+          <div class="flow-node active-node">
+            <div class="node-icon bg-green-soft"><i data-lucide="check-circle-2"></i></div>
+            <div class="node-text"><strong>YES → GENERATE ANSWER</strong><span>Synthesize output</span></div>
+          </div>
+          <div class="flow-node" style="border:1px dashed var(--accent-red); background:rgba(220,38,38,0.05);">
+            <div class="node-icon bg-red-soft"><i data-lucide="refresh-cw"></i></div>
+            <div class="node-text"><strong class="text-red">NO → REWRITE QUERY & RETRY</strong><span>Max Retries = 2</span></div>
+          </div>
+        </div>
+
+        <div class="info-stack animate-in delay-2">
+          <div class="quote-card black-banner">
+            <i data-lucide="shield-check" class="quote-icon"></i>
+            <h3 style="color:#FFFFFF; font-size:16px;">Guardrail: Max Retries</h3>
+            <p class="highlight-quote">
+              "We set <code>max_retries = 2</code> so the agent self-corrects without getting stuck in an infinite loop."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FINAL SECTION: OUR PROJECT (ALL SPEAKERS / LIVE SPRINT)
+         ========================================================================== -->
+
+    <!-- SLIDE 41 (USER SLIDE 35): PUT EVERYTHING TOGETHER -->
+    <section class="slide" data-slide="41" data-section="09 // Blueprint">
+      <div class="slide-header">
+        <span class="section-badge">09 // MASTER ARCHITECTURE</span>
+        <h2 class="slide-title">Put everything together: <span class="green-text">The Master Blueprint</span></h2>
+        <p class="slide-desc">This is the complete system you now understand and will build today.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="master-arch-canvas animate-in delay-1">
+          <!-- Level 1: Frontend -->
+          <div class="arch-level">
+            <div class="level-actor"><i data-lucide="monitor" class="text-green"></i> 1. REACT CLIENT UI</div>
+            <div class="level-box" style="background:var(--brand-green-light); border-color:var(--brand-green);">
+              User Input Form &bull; Document Upload Zone &bull; Real-Time Markdown Streaming
+            </div>
+          </div>
+
+          <div style="color:var(--brand-green-dark);"><i data-lucide="arrow-down"></i> REST API (HTTP JSON)</div>
+
+          <!-- Level 2: Backend Orchestrator -->
+          <div class="arch-level">
+            <div class="level-actor"><i data-lucide="server" class="text-green"></i> 2. FASTAPI + LANGGRAPH WORKFLOW</div>
+            <div class="level-box" style="background:var(--color-black); color:#FFFFFF;">
+              Intent Classifier &bull; StateGraph Orchestration &bull; Relevance Evaluator &bull; Retry Loop
+            </div>
+          </div>
+
+          <div style="color:var(--brand-green-dark);"><i data-lucide="arrow-down"></i> Dynamic Tool Invocations</div>
+
+          <!-- Level 3: Dual Tools & LLM -->
+          <div class="arch-level-split">
+            <div class="split-box">
+              <i data-lucide="database" class="text-green"></i>
+              <strong>ChromaDB Vector Store</strong>
+              <span class="text-muted" style="font-size:10px;">Private PDF Embeddings</span>
+            </div>
+            <div class="split-box">
+              <i data-lucide="globe" class="text-blue"></i>
+              <strong>Tavily Search API</strong>
+              <span class="text-muted" style="font-size:10px;">Live Web Facts</span>
+            </div>
+            <div class="split-box">
+              <i data-lucide="cpu" class="text-amber"></i>
+              <strong>Groq Llama-3</strong>
+              <span class="text-muted" style="font-size:10px;">500+ tok/s Inference</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 42 (USER SLIDE 36): THE ENTIRE JOURNEY -->
+    <section class="slide" data-slide="42" data-section="09 // The Journey">
+      <div class="slide-header">
+        <span class="section-badge">09 // THE JOURNEY</span>
+        <h2 class="slide-title">The entire journey in <span class="green-text">4 clear levels</span></h2>
+        <p class="slide-desc">Every technology introduced today answers a specific, concrete problem.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="grid-4-col animate-in delay-1">
+          <div class="pillar-card">
+            <span class="tech-badge orange">LEVEL 1</span>
+            <h4 style="font-size:14px;">Build the Interface</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">HTML → CSS → JavaScript → React</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge blue">LEVEL 2</span>
+            <h4 style="font-size:14px;">Connect the App</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">REST API → JSON → FastAPI</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge green">LEVEL 3</span>
+            <h4 style="font-size:14px;">Give AI Knowledge</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">LLM → RAG → Embeddings → ChromaDB</p>
+          </div>
+
+          <div class="pillar-card">
+            <span class="tech-badge purple">LEVEL 4</span>
+            <h4 style="font-size:14px;">Give Capabilities</h4>
+            <p class="text-muted" style="font-size:11.5px; margin-top:4px;">Tools → Agents → LangGraph</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 43 (USER SLIDE 37): NOW YOU ARE READY -->
+    <section class="slide" data-slide="43" data-section="09 // Ready">
+      <div class="slide-header text-center">
+        <span class="section-badge pulse-badge animate-in delay-1">READY FOR HANDS-ON</span>
+      </div>
+
+      <div class="slide-content text-center">
+        <div style="max-width:820px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:16px;">
+          <h1 class="slide-title animate-in delay-2" style="font-size:clamp(28px, 3.6vw, 48px); font-weight:900;">
+            You understand the <span class="green-text">entire architecture.</span>
+          </h1>
+
+          <div class="formula-banner animate-in delay-3" style="font-size:16px; padding:14px 28px;">
+            <span>CONCEPT</span> <i data-lucide="arrow-right" class="text-green"></i>
+            <span>CODE</span> <i data-lucide="arrow-right" class="text-green"></i>
+            <span>BUILD</span> <i data-lucide="arrow-right" class="text-green"></i>
+            <span class="green-text font-bold">EXPERIMENT 🚀</span>
+          </div>
+
+          <p class="text-muted animate-in delay-4" style="font-size:14px;">
+            Every file, library, and endpoint you write in the next hour will make complete sense.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 44 (USER SLIDE 38): LET'S BUILD -->
+    <section class="slide" data-slide="44" data-section="09 // Live Sprint">
+      <div class="slide-header">
+        <span class="section-badge">09 // LIVE HANDS-ON SPRINT</span>
+        <h2 class="slide-title">LET'S BUILD THE <span class="green-text">AI RESEARCH AGENT</span> 🚀</h2>
+        <p class="slide-desc">Our 11-step practical implementation sequence for today's coding session.</p>
+      </div>
+
+      <div class="slide-content">
+        <div class="timeline-schedule animate-in delay-1">
+          <div class="t-block highlight-t"><span class="t-time">01</span><strong>Setup</strong><p class="t-task">Python venv</p></div>
+          <div class="t-block"><span class="t-time">02</span><strong>FastAPI</strong><p class="t-task">Server scaffold</p></div>
+          <div class="t-block"><span class="t-time">03</span><strong>Doc Upload</strong><p class="t-task">Chunking logic</p></div>
+          <div class="t-block"><span class="t-time">04</span><strong>Embeddings</strong><p class="t-task">Gemini vectors</p></div>
+          <div class="t-block highlight-t"><span class="t-time">05</span><strong>ChromaDB</strong><p class="t-task">Vector index</p></div>
+          <div class="t-block"><span class="t-time">06</span><strong>LangGraph</strong><p class="t-task">State & nodes</p></div>
+          <div class="t-block"><span class="t-time">07</span><strong>Tavily</strong><p class="t-task">Live web tool</p></div>
+          <div class="t-block"><span class="t-time">08</span><strong>Groq</strong><p class="t-task">Llama-3 model</p></div>
+          <div class="t-block highlight-t"><span class="t-time">09</span><strong>React UI</strong><p class="t-task">Components</p></div>
+          <div class="t-block"><span class="t-time">10</span><strong>Streaming</strong><p class="t-task">SSE tokens</p></div>
+          <div class="t-block highlight-t"><span class="t-time">11</span><strong>Test & Demo</strong><p class="t-task">Live Q&A</p></div>
+        </div>
+
+        <div class="quote-card black-banner animate-in delay-2 mt-2">
+          <p class="highlight-quote">
+            "A seed today, a forest tomorrow. <strong>Let's open our laptops and build!</strong>"
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CLEAN BOTTOM SLIDE CONTROL BAR -->
+  <footer class="deck-footer">
+    <div class="footer-left">
+      <button class="nav-btn" id="btnPrev" title="Previous Slide (Key: Left Arrow / PageUp)">
+        <i data-lucide="chevron-left"></i> Previous
+      </button>
+      <span class="slide-indicator" id="slideIndicator">1 / 44</span>
+      <button class="nav-btn" id="btnNext" title="Next Slide (Key: Right Arrow / Space / PageDown)">
+        Next <i data-lucide="chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="footer-center">
+      <span class="current-section-badge" id="currentSectionBadge">GrowSphere</span>
+    </div>
+
+    <div class="footer-right">
+      <span class="keyboard-hints">
+        <kbd>←</kbd> <kbd>→</kbd> Navigate &nbsp;|&nbsp; <kbd>F</kbd> Fullscreen &nbsp;|&nbsp; <kbd>G</kbd> Grid
+        &nbsp;|&nbsp; <kbd>N</kbd> Notes &nbsp;|&nbsp; <kbd>T</kbd> Timer
+      </span>
+    </div>
+  </footer>
+
+  <!-- Slide Grid Overlay Modal -->
+  <div class="grid-overlay" id="gridOverlay">
+    <div class="grid-overlay-header">
+      <h2><i data-lucide="layout-grid"></i> Slide Overview (Jump to any slide)</h2>
+      <button class="close-grid-btn" id="btnCloseGrid"><i data-lucide="x"></i></button>
+    </div>
+    <div class="grid-thumbnails" id="gridThumbnails"></div>
+  </div>
+
+  <!-- Speaker Notes Modal -->
+  <div class="notes-modal" id="notesModal">
+    <div class="notes-modal-content">
+      <div class="notes-modal-header">
+        <h3><i data-lucide="file-text"></i> Presenter Notes (Slide <span id="notesSlideNum">1</span>)</h3>
+        <button class="close-notes-btn" id="btnCloseNotes"><i data-lucide="x"></i></button>
+      </div>
+      <div class="notes-body" id="notesBody"></div>
+    </div>
+  </div>
+
+  <!-- SELF-CONTAINED JAVASCRIPT ENGINE -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const progressBar = document.getElementById('progressBar');
+      const slideIndicator = document.getElementById('slideIndicator');
+      const currentSectionBadge = document.getElementById('currentSectionBadge');
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const btnFullscreen = document.getElementById('btnFullscreen');
+      const btnGrid = document.getElementById('btnGrid');
+      const btnNotes = document.getElementById('btnNotes');
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const gridOverlay = document.getElementById('gridOverlay');
+      const btnCloseGrid = document.getElementById('btnCloseGrid');
+      const gridThumbnails = document.getElementById('gridThumbnails');
+      const notesModal = document.getElementById('notesModal');
+      const btnCloseNotes = document.getElementById('btnCloseNotes');
+      const notesSlideNum = document.getElementById('notesSlideNum');
+      const notesBody = document.getElementById('notesBody');
+      const timerDisplay = document.getElementById('timerDisplay');
+      const presentationTimer = document.getElementById('presentationTimer');
+
+      let currentSlide = 1;
+      const totalSlides = slides.length;
+
+      const speakerNotes = {
+        1: `<strong>GrowSphere Intro:</strong> Welcome everyone! GrowSphere is Mumbai's student tech community. Learn. Build. Grow. Turning classroom theory into working software.`,
+        2: `<strong>Speaker 1 (Dev Kanojiya):</strong> Full Stack Developer, backend specialist. Dev leads Section 1 & 2 covering Web Fundamentals, React Components, APIs, and FastAPI.`,
+        3: `<strong>Speaker 2 (Ashish Parab):</strong> Software Developer @ Cactus Communications. Ashish leads Section 3 & 4 covering LLM fundamentals, RAG, Chunking, Embeddings, and ChromaDB.`,
+        4: `<strong>Speaker 3 (Aditya Sabnis):</strong> AI Full-Stack Engineer, Monad Blitz Winner. Aditya leads Section 5 & 6 covering Live Web Tools (Tavily), Autonomous Agents, and LangGraph.`,
+        5: `<strong>Lead & Organizer (Devendra):</strong> Community Lead at GrowSphere, driving student tech initiatives and hackathons across Mumbai colleges.`,
+        6: `<strong>Workshop Kickoff:</strong> Today we will follow a progressive learning journey from the browser up to autonomous agents before our live coding sprint!`,
+        7: `<strong>Dev Kanojiya (Slide 01):</strong> Every AI app is still an application! Walk through the 4-layer hierarchy: Interface -> Logic -> Data -> AI.`,
+        8: `<strong>Dev Kanojiya (Slide 02):</strong> What does the browser do? Explain that Chrome/Safari read your code and render pixels on screen.`,
+        9: `<strong>Dev Kanojiya (Slide 03):</strong> The 3 Building Blocks: HTML (Structure), CSS (Style), JavaScript (Behavior). Keep it intuitive.`,
+        10: `<strong>Dev Kanojiya (Slide 04):</strong> HTML defines the blueprint boxes: Header, Upload, Input, Button, Result card.`,
+        11: `<strong>Dev Kanojiya (Slide 05):</strong> CSS adds the spacing, typography, colors, and polish to turn wireframes into usable software.`,
+        12: `<strong>Dev Kanojiya (Slide 06):</strong> JavaScript adds interaction: clicking Research triggers loading and updates the screen live.`,
+        13: `<strong>Dev Kanojiya (Slide 07):</strong> The complexity trap: 1 giant 3000-line HTML file is unmaintainable. We need modular components!`,
+        14: `<strong>Dev Kanojiya (Slide 08):</strong> Meet React: Building UI from reusable component trees (&lt;Header /&gt;, &lt;UploadZone /&gt;, etc.).`,
+        15: `<strong>Dev Kanojiya (Slide 09):</strong> What is a component? A self-contained Lego block. You build it once and reuse it anywhere.`,
+        16: `<strong>Dev Kanojiya (Slide 10):</strong> React has State: The UI's memory. When Documents: 0 becomes Documents: 1, React instantly re-renders.`,
+        17: `<strong>Dev Kanojiya (Slide 11):</strong> Frontend complete! Pivot question: Where does the actual AI reasoning and document search happen?`,
+        18: `<strong>Dev Kanojiya (Slide 12):</strong> Why frontend cannot do everything: Browser is public, API keys get stolen, 50MB PDFs choke client RAM.`,
+        19: `<strong>Dev Kanojiya (Slide 13):</strong> What is an API? The Restaurant Analogy: Customer (React) -> Waiter (API) -> Kitchen (Backend) -> Food (Result).`,
+        20: `<strong>Dev Kanojiya (Slide 14):</strong> Request & Response JSON: Show the clean key-value format sent over HTTP POST /research.`,
+        21: `<strong>Dev Kanojiya (Slide 15):</strong> Meet FastAPI: The high-speed Python backend framework connecting React to AI engines.`,
+        22: `<strong>Dev Kanojiya (Slide 16):</strong> Our first AI loop complete! Handover to Ashish: What if the LLM doesn't know our private PDF?`,
+        23: `<strong>Ashish Parab (Slide 17):</strong> Meet the LLM: A model trained on language. But it has never seen your private company document.`,
+        24: `<strong>Ashish Parab (Slide 18):</strong> The 100-page problem: Context ceilings, token costs, latency, and hallucinations. We need selective retrieval!`,
+        25: `<strong>Ashish Parab (Slide 19):</strong> The solution: RAG (Open-book exam). Find the exact 2 paragraphs and hand them to the LLM.`,
+        26: `<strong>Ashish Parab (Slide 20):</strong> The 6-step RAG pipeline from document upload to grounded answer.`,
+        27: `<strong>Ashish Parab (Slide 21):</strong> Why keyword search fails: 'faster application' vs 'reduced latency'. We need semantic search!`,
+        28: `<strong>Ashish Parab (Slide 22):</strong> What is an embedding? The Gemini model turns words into multi-dimensional coordinates (lists of numbers).`,
+        29: `<strong>Ashish Parab (Slide 23):</strong> Vector Search in 2D space: Similar meanings cluster close together (cosine similarity <5ms).`,
+        30: `<strong>Ashish Parab (Slide 24):</strong> Meet ChromaDB: The lightweight, embedded vector database storing our embeddings locally.`,
+        31: `<strong>Aditya Sabnis (Slide 25):</strong> What if the answer isn't in the PDF? E.g., 'What happened in AI today?' Static PDFs cannot know today's news!`,
+        32: `<strong>Aditya Sabnis (Slide 26):</strong> Giving the AI tools: Function calling connects LLMs to ChromaDB, Python, and Tavily Live Web Search.`,
+        33: `<strong>Aditya Sabnis (Slide 27):</strong> LLM vs RAG vs Agent: Passive generation -> Document retrieval -> Autonomous decision making.`,
+        34: `<strong>Aditya Sabnis (Slide 28):</strong> The Decision Cycle: Question -> Decide -> Act -> Observe -> Decide Again -> Final Answer.`,
+        35: `<strong>Aditya Sabnis (Slide 29):</strong> Multi-step workflows need a graph orchestrator when branching and retrying are required.`,
+        36: `<strong>Aditya Sabnis (Slide 30):</strong> LangGraph = State (Shared Memory) + Nodes (Functions) + Edges (Pathways).`,
+        37: `<strong>Aditya Sabnis (Slide 31):</strong> Nodes: The 5 work units (Analyze, Search Docs, Search Web, Evaluate, Generate Answer).`,
+        38: `<strong>Aditya Sabnis (Slide 32):</strong> Edges: The connections that pass state forward from one node to the next.`,
+        39: `<strong>Aditya Sabnis (Slide 33):</strong> Conditional Edges: The Router node inspects the question and dynamically branches to Docs or Web.`,
+        40: `<strong>Aditya Sabnis (Slide 34):</strong> The Self-Correcting Retry Loop: If relevance is low, rewrite query and retry (max retries = 2).`,
+        41: `<strong>Main Lead (Slide 35):</strong> Master Blueprint Architecture: React UI <-> FastAPI <-> LangGraph <-> [ChromaDB + Tavily] <-> Groq LLM.`,
+        42: `<strong>Main Lead (Slide 36):</strong> The Entire Journey in 4 Levels: Interface -> Connect -> Knowledge -> Capabilities.`,
+        43: `<strong>Main Lead (Slide 37):</strong> You understand the architecture! Concept -> Code -> Build -> Experiment.`,
+        44: `<strong>Main Lead (Slide 38):</strong> LET'S BUILD! The 11-step hands-on implementation sprint begins right now.`
+      };
+
+      // Sound Synthesis (Web Audio API)
+      const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+
+      function playSound(type) {
+        if (!audioCtx) return;
+        try {
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          const now = audioCtx.currentTime;
+
+          if (type === 'slide') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(340, now);
+            osc.frequency.exponentialRampToValueAtTime(540, now + 0.05);
+            gain.gain.setValueAtTime(0.04, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.05);
+          } else if (type === 'click') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, now);
+            gain.gain.setValueAtTime(0.03, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.03);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      function updateSlide(newSlide, playAudio = true) {
+        if (newSlide < 1 || newSlide > totalSlides) return;
+        currentSlide = newSlide;
+
+        slides.forEach((slide, idx) => {
+          if (idx + 1 === currentSlide) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Update Progress Bar
+        const progressPct = ((currentSlide) / totalSlides) * 100;
+        progressBar.style.width = `${progressPct}%`;
+
+        // Update Bottom Nav Indicators
+        slideIndicator.textContent = `${currentSlide} / ${totalSlides}`;
+        const activeSlideElem = slides[currentSlide - 1];
+        const sectionName = activeSlideElem.getAttribute('data-section') || 'GrowSphere';
+        currentSectionBadge.textContent = sectionName;
+
+        btnPrev.disabled = (currentSlide === 1);
+        btnNext.disabled = (currentSlide === totalSlides);
+
+        // Update Speaker Notes Content
+        notesSlideNum.textContent = currentSlide;
+        notesBody.innerHTML = speakerNotes[currentSlide] || `<p>No specific notes for slide ${currentSlide}.</p>`;
+
+        if (playAudio) playSound('slide');
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function nextSlide() { if (currentSlide < totalSlides) updateSlide(currentSlide + 1); }
+      function prevSlide() { if (currentSlide > 1) updateSlide(currentSlide - 1); }
+
+      btnNext.addEventListener('click', nextSlide);
+      btnPrev.addEventListener('click', prevSlide);
+
+      // Theme Switcher (Light / Dark)
+      btnThemeToggle.addEventListener('click', () => {
+        playSound('click');
+        document.body.classList.toggle('theme-dark');
+        const isDark = document.body.classList.contains('theme-dark');
+        themeIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+        if (window.lucide) window.lucide.createIcons();
+      });
+
+      // Grid Modal
+      function toggleGrid() {
+        playSound('click');
+        buildGridThumbnails();
+        gridOverlay.classList.toggle('active');
+      }
+
+      btnGrid.addEventListener('click', toggleGrid);
+      btnCloseGrid.addEventListener('click', toggleGrid);
+
+      // Notes Modal
+      function toggleNotes() {
+        playSound('click');
+        notesModal.classList.toggle('active');
+      }
+
+      btnNotes.addEventListener('click', toggleNotes);
+      btnCloseNotes.addEventListener('click', toggleNotes);
+
+      function buildGridThumbnails() {
+        gridThumbnails.innerHTML = '';
+        slides.forEach(slide => {
+          const num = slide.getAttribute('data-slide');
+          const section = slide.getAttribute('data-section') || 'Slide';
+          const titleElem = slide.querySelector('.slide-title, .hero-title');
+          const titleText = titleElem ? titleElem.textContent.replace(/🧠|⚡|🚀/g, '').trim().substring(0, 30) : `Slide ${num}`;
+
+          const card = document.createElement('div');
+          card.className = `thumb-card ${parseInt(num) === currentSlide ? 'active-thumb' : ''}`;
+          card.dataset.slide = num;
+          card.innerHTML = `
+            <div class="thumb-header">
+              <span>#${num}</span>
+              <span>${section}</span>
+            </div>
+            <div class="thumb-title">${titleText}</div>
+          `;
+
+          card.addEventListener('click', () => {
+            updateSlide(parseInt(num));
+            gridOverlay.classList.remove('active');
+          });
+
+          gridThumbnails.appendChild(card);
+        });
+      }
+
+      // Keyboard Shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (gridOverlay.classList.contains('active')) gridOverlay.classList.remove('active');
+          if (notesModal.classList.contains('active')) notesModal.classList.remove('active');
+          return;
+        }
+        if (e.key === 'g' || e.key === 'G') { toggleGrid(); return; }
+        if (e.key === 'n' || e.key === 'N') { toggleNotes(); return; }
+        if (e.key === 'l' || e.key === 'L') { btnThemeToggle.click(); return; }
+        if (e.key === 'f' || e.key === 'F') {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => console.log(err));
+          } else {
+            document.exitFullscreen();
+          }
+          return;
+        }
+        if (e.key === 't' || e.key === 'T') { toggleTimer(); return; }
+
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') {
+          e.preventDefault();
+          nextSlide();
+        }
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          prevSlide();
+        }
+        if (e.key === 'Home') { e.preventDefault(); updateSlide(1); }
+        if (e.key === 'End') { e.preventDefault(); updateSlide(totalSlides); }
+      });
+
+      // Swipe Gestures
+      let touchStartX = 0;
+      let touchEndX = 0;
+      window.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      window.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) nextSlide();
+        if (touchEndX > touchStartX + 50) prevSlide();
+      }, { passive: true });
+
+      // Timer Logic
+      let timerInterval = null;
+      let secondsElapsed = 0;
+      let isTimerRunning = false;
+
+      function formatTime(secs) {
+        const m = Math.floor(secs / 60).toString().padStart(2, '0');
+        const s = (secs % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      function toggleTimer() {
+        playSound('click');
+        if (!isTimerRunning) {
+          isTimerRunning = true;
+          timerInterval = setInterval(() => {
+            secondsElapsed++;
+            timerDisplay.textContent = formatTime(secondsElapsed);
+          }, 1000);
+          presentationTimer.style.borderColor = 'var(--brand-green)';
+        } else {
+          isTimerRunning = false;
+          clearInterval(timerInterval);
+          presentationTimer.style.borderColor = 'var(--border-main)';
+        }
+      }
+
+      presentationTimer.addEventListener('click', toggleTimer);
+
+      window.addEventListener('click', () => {
+        if (!isTimerRunning && secondsElapsed === 0) toggleTimer();
+      }, { once: true });
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
+      updateSlide(1, false);
+    });
+  </script>
+</body>
+
+</html>
