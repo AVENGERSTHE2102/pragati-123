@@ -1,7 +1,7 @@
 # 🧠 AI Research Agent — Workshop Deck
 ### Research across your documents and the live web · GrowSphere Community
 
-An animated, 60-slide HTML presentation. Every concept has its own live visual: a request travelling through a backend, a cache hit vs miss, a load balancer, a vector scatter plot, an agent router, n8n workflows that run node by node, and more.
+An animated, 65-slide HTML presentation. Every concept has its own live visual: a request travelling through a backend, a cache hit vs miss, a load balancer, a vector scatter plot, an agent router, n8n workflows that run node by node, and more.
 
 ## Run it
 
@@ -30,16 +30,16 @@ The deck renders on a fixed 1600×900 stage that scales to any screen, so it loo
 
 The URL hash tracks the slide (`index.html#28`), so a refresh keeps your place.
 
-## Structure (60 slides)
+## Structure (65 slides)
 
 | Slides | Part | Speaker |
 |---|---|---|
 | 1–6 | GrowSphere, speakers, hero, roadmap | — |
-| 7–27 | **Part 01 · How Apps Really Work**: React in 2 min, then a generic backend deep dive (client–server, APIs, HTTP, REST, status codes, layers, monolith vs microservices, SQL/NoSQL, caching, queues, auth, security, deploy & scale) | — |
-| 28–36 | **Part 02 · Give the AI Knowledge**: LLM, the 100-page problem, RAG, embeddings, vector DBs | Ashish Parab |
-| 37–45 | **Part 03 · Give the AI Capabilities**: tools, agents, LangGraph, agent patterns (routing, retry) | Aditya Sabnis |
-| 46–55 | **Part 04 · Automate with n8n**: concepts, triggers, AI Agent node, RAG workflows, code vs n8n, project ideas, Telegram bot walkthrough, setup | — |
-| 56–60 | **Part 05 · Let's Build It**: blueprint, journey, 11-step sprint | All instructors |
+| 7–32 | **Part 01 · How Apps Really Work**: React in 2 min, then a generic backend deep dive (client–server, APIs, HTTP, REST, status codes, layers, monolith vs microservices, SQL/NoSQL, caching, queues, auth, security, Git & GitHub, deploy & scale) | — |
+| 33–41 | **Part 02 · Give the AI Knowledge**: LLM, the 100-page problem, RAG, embeddings, vector DBs | Ashish Parab |
+| 42–50 | **Part 03 · Give the AI Capabilities**: tools, agents, LangGraph, agent patterns (routing, retry) | Aditya Sabnis |
+| 51–60 | **Part 04 · Automate with n8n**: concepts, triggers, AI Agent node, RAG workflows, code vs n8n, project ideas, Telegram bot walkthrough, setup | — |
+| 61–65 | **Part 05 · Let's Build It**: blueprint, journey, 11-step sprint | All instructors |
 
 ## Files
 

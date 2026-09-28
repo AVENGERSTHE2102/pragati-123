@@ -84,7 +84,7 @@
           <div class="card ag reveal pop" style="--d:1">
             <div class="n">01</div>
             <h3>How Apps Work</h3>
-            <ul><li>React in 2 min</li><li>Backend &amp; APIs</li><li>DBs, auth, deploy</li></ul>
+            <ul><li>React in 2 min</li><li>Backend &amp; APIs</li><li>DBs, auth, Git, deploy</li></ul>
             <div class="who"><i data-lucide="timer"></i> 20 minutes</div>
           </div>
           <div class="card ag reveal pop" style="--d:2">
@@ -126,7 +126,7 @@
       <div class="big-num">01</div>
       <div class="part reveal">Part 01 · 20 minutes</div>
       <h1 class="reveal" style="--d:1">How Apps <span class="green-text">Really Work</span></h1>
-      <div class="path reveal" style="--d:2"><b>Frontend</b>→<b>Backend</b>→<b>APIs</b>→<b>Architecture</b>→<b>Databases</b>→<b>Security</b>→<b>Deploy</b></div>
+      <div class="path reveal" style="--d:2"><b>Frontend</b>→<b>Backend</b>→<b>APIs</b>→<b>Architecture</b>→<b>Databases</b>→<b>Security</b>→<b>Git</b>→<b>Deploy</b></div>
       <aside class="notes"><strong>Part 01:</strong> A quick look at the frontend, then a deep dive into the backend — the part every AI app actually runs on.</aside>
     </section>
 
@@ -650,6 +650,167 @@ Content-Type: application/json
         <div class="punch fragment"><div class="p-icon"><i data-lucide="shield-check"></i></div><div>Golden rule: <strong>never trust the client. Validate everything on the server.</strong></div></div>
       </div>
       <aside class="notes">Each of these maps to a real breach story. The .env one matters today: we'll use API keys in the sprint — keep them out of Git.</aside>
+    </section>
+
+    <section class="slide" data-section="01 · Git" data-topic="5" data-title="What is Git?">
+      <div class="slide-header">
+        <span class="kicker">01 · Git &amp; GitHub</span>
+        <h2 class="slide-title">Git = <span class="green-text">save points</span> for your code</h2>
+        <p class="slide-desc">Git is a version control system: it records every change as a snapshot (a commit) you can return to at any time.</p>
+      </div>
+      <div class="slide-content">
+        <div class="card reveal" style="--d:1; padding:30px 34px;">
+          <div class="commit-line seq" data-seq-ms="900" data-seq-mode="build">
+            <div class="cmt s"><b></b><code>a1f3c9</code><span>Initial project</span></div>
+            <div class="cmt s"><b></b><code>7d20e1</code><span>Add login page</span></div>
+            <div class="cmt s"><b></b><code>c94b72</code><span>Connect database</span></div>
+            <div class="cmt s"><b></b><code>e0a6d4</code><span>Fix password bug</span></div>
+            <div class="cmt s"><b></b><code>5b8f13</code><span>Add AI search</span></div>
+            <div class="cmt s head"><b></b><code>HEAD</code><span>You are here</span></div>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="card flat row reveal pop" style="--d:2"><div class="tile green lg"><i data-lucide="undo-2"></i></div><div><h4>Undo anything</h4><p class="small">Broke the app? Go back to the last working commit.</p></div></div>
+          <div class="card flat row reveal pop" style="--d:3"><div class="tile blue lg"><i data-lucide="history"></i></div><div><h4>Full history</h4><p class="small">See who changed what, when and why.</p></div></div>
+          <div class="card flat row reveal pop" style="--d:4"><div class="tile purple lg"><i data-lucide="users"></i></div><div><h4>Teamwork</h4><p class="small">Many people edit the same project safely.</p></div></div>
+        </div>
+        <div class="punch fragment"><div class="p-icon"><i data-lucide="git-commit-horizontal"></i></div><div>Git runs on your laptop. <strong>GitHub is where you share it online.</strong></div></div>
+      </div>
+      <aside class="notes">Save points in a video game: each commit is a checkpoint you can reload. Git = the tool (local), GitHub = the website that hosts Git repos.</aside>
+    </section>
+
+    <section class="slide" data-section="01 · Git" data-topic="5" data-anim="steps" data-title="The Git workflow">
+      <div class="slide-header">
+        <span class="kicker">01 · Git &amp; GitHub</span>
+        <h2 class="slide-title">The Git workflow: <span class="green-text">add → commit → push</span></h2>
+        <p class="slide-desc">Your code moves through four places. Three commands move it along.</p>
+      </div>
+      <div class="slide-content">
+        <div class="graph reveal" style="--d:1; width:1416px; height:220px;">
+          <svg class="edges" viewBox="0 0 1416 220">
+            <path class="edge" data-step="2" pathLength="100" style="--i:0" d="M255 110 L 455 110" />
+            <path class="edge" data-step="3" pathLength="100" style="--i:1" d="M615 110 L 815 110" />
+            <path class="edge" data-step="4" pathLength="100" style="--i:2" d="M975 110 L 1175 110" />
+          </svg>
+          <span class="edge-lbl" style="left:355px;">git add</span>
+          <span class="edge-lbl" style="left:715px;">git commit</span>
+          <span class="edge-lbl" style="left:1075px;">git push</span>
+          <div class="gnode" data-step="1" style="left:170px; top:110px;" data-cap="You edit files in your project folder — Git notices what changed (git status)"><div class="tile sm amber" style="margin:0 auto 6px;"><i data-lucide="file-pen"></i></div><strong>Working folder</strong><span>your edits</span></div>
+          <div class="gnode" data-step="2" style="left:535px; top:110px;" data-cap="git add picks which changes go into the next snapshot (the staging area)"><div class="tile sm blue" style="margin:0 auto 6px;"><i data-lucide="package-plus"></i></div><strong>Staging area</strong><span>ready to save</span></div>
+          <div class="gnode" data-step="3" style="left:895px; top:110px;" data-cap="git commit -m &quot;…&quot; saves the snapshot with a message in your local history"><div class="tile sm green" style="margin:0 auto 6px;"><i data-lucide="git-commit-horizontal"></i></div><strong>Local repo</strong><span>history on laptop</span></div>
+          <div class="gnode" data-step="4" style="left:1260px; top:110px;" data-cap="git push uploads your commits to GitHub so the team (and servers) can get them"><div class="tile sm black" style="margin:0 auto 6px;"><i data-lucide="github"></i></div><strong>GitHub</strong><span>shared online</span></div>
+        </div>
+        <div class="walk-cap reveal" style="--d:2" data-idle="Edit → add → commit → push. Repeat all day."></div>
+        <div class="term reveal" style="--d:3">
+          <div class="term-bar"><div class="dots"><b></b><b></b><b></b></div><span>terminal</span></div>
+          <pre style="font-size:17px; padding:16px 24px;"><span class="k">git</span> status                       <span class="cm"># what changed?</span>
+<span class="k">git</span> add .                        <span class="cm"># stage everything</span>
+<span class="k">git</span> commit -m <span class="s-str">"Add login page"</span>   <span class="cm"># save a snapshot</span>
+<span class="k">git</span> push                         <span class="cm"># upload to GitHub</span></pre>
+        </div>
+      </div>
+      <aside class="notes">Staging lets you choose exactly what goes into a commit. Commits are local until you push.</aside>
+    </section>
+
+    <section class="slide" data-section="01 · Git" data-topic="5" data-anim="steps" data-title="Branches & merging">
+      <div class="slide-header">
+        <span class="kicker">01 · Git &amp; GitHub</span>
+        <h2 class="slide-title">Branches: <span class="green-text">experiment safely</span></h2>
+        <p class="slide-desc">A branch is a parallel copy of the history. Build a feature there, then merge it back when it works.</p>
+      </div>
+      <div class="slide-content">
+        <div class="graph reveal" style="--d:1; width:1416px; height:320px;">
+          <span class="lane-lbl" style="top:72px; color:var(--green);">main</span>
+          <span class="lane-lbl" style="top:212px; color:var(--purple);">feature/login</span>
+          <svg class="edges" viewBox="0 0 1416 320">
+            <path class="edge" data-step="2" pathLength="100" style="--i:0" d="M200 90 L 400 90" />
+            <path class="edge" data-step="3" pathLength="100" style="--i:1; stroke:var(--purple);" d="M400 90 C 480 90, 520 230, 620 230" />
+            <path class="edge" data-step="4" pathLength="100" style="--i:1; stroke:var(--purple);" d="M620 230 L 840 230" />
+            <path class="edge" data-step="5" pathLength="100" style="--i:1" d="M400 90 L 760 90" />
+            <path class="edge" data-step="6" pathLength="100" style="--i:2" d="M840 230 C 960 230, 1000 90, 1080 90" />
+            <path class="edge" data-step="6" pathLength="100" style="--i:2" d="M760 90 L 1080 90" />
+            <path class="edge" data-step="7" pathLength="100" style="--i:3" d="M1080 90 L 1300 90" />
+          </svg>
+          <div class="gdot" data-step="1" style="left:200px; top:90px;" data-cap="main holds the working version of the app"><span>Initial app</span></div>
+          <div class="gdot" data-step="2" style="left:400px; top:90px;" data-cap="Another commit on main"><span>Add homepage</span></div>
+          <div class="gdot purple" data-step="3" style="left:620px; top:230px;" data-cap="git switch -c feature/login — a safe copy to experiment in"><span>Login form</span></div>
+          <div class="gdot purple" data-step="4" style="left:840px; top:230px;" data-cap="Keep committing on the branch — main stays untouched and working"><span>Login API</span></div>
+          <div class="gdot" data-step="5" style="left:760px; top:90px;" data-cap="Meanwhile, a teammate fixes a bug directly on main"><span>Fix footer</span></div>
+          <div class="gdot merge" data-step="6" style="left:1080px; top:90px;" data-cap="git merge feature/login — the finished feature joins main"><span>Merge ✓</span></div>
+          <div class="gdot" data-step="7" style="left:1300px; top:90px;" data-cap="main has both changes — ready to deploy"><span>Deploy 🚀</span></div>
+        </div>
+        <div class="walk-cap reveal" style="--d:2" data-idle="main = always working. Branches = where new work happens."></div>
+        <div class="punch fragment"><div class="p-icon"><i data-lucide="git-merge"></i></div><div><code>git switch -c feature</code> → commit → <code>git merge feature</code>. <strong>Break things on a branch, never on main.</strong></div></div>
+      </div>
+      <aside class="notes">The purple branch splits off, gets its own commits while main keeps moving, then merges back. If two people edit the same line you get a merge conflict — Git asks you to choose.</aside>
+    </section>
+
+    <section class="slide" data-section="01 · Git" data-topic="5" data-anim="steps" data-title="GitHub & pull requests">
+      <div class="slide-header">
+        <span class="kicker">01 · Git &amp; GitHub</span>
+        <h2 class="slide-title">GitHub: <span class="green-text">collaborate</span> with pull requests</h2>
+        <p class="slide-desc">GitHub hosts your repository online and adds the tools teams use to review and ship code.</p>
+      </div>
+      <div class="slide-content">
+        <div class="graph reveal" style="--d:1; width:1416px; height:190px;">
+          <svg class="edges" viewBox="0 0 1416 190">
+            <path class="edge" data-step="2" pathLength="100" style="--i:0" d="M180 95 L 223 95" />
+            <path class="edge" data-step="3" pathLength="100" style="--i:0" d="M383 95 L 426 95" />
+            <path class="edge" data-step="4" pathLength="100" style="--i:1" d="M586 95 L 629 95" />
+            <path class="edge" data-step="5" pathLength="100" style="--i:1" d="M789 95 L 832 95" />
+            <path class="edge" data-step="6" pathLength="100" style="--i:2" d="M992 95 L 1035 95" />
+            <path class="edge" data-step="7" pathLength="100" style="--i:2" d="M1195 95 L 1238 95" />
+          </svg>
+          <div class="gnode" data-step="1" style="left:100px; top:95px; min-width:150px;" data-cap="git clone <url> — download the repo to your laptop"><strong>Clone</strong><span>get the code</span></div>
+          <div class="gnode" data-step="2" style="left:303px; top:95px; min-width:150px;" data-cap="git switch -c fix-typo — make your own branch"><strong>Branch</strong><span>your copy</span></div>
+          <div class="gnode" data-step="3" style="left:506px; top:95px; min-width:150px;" data-cap="Edit, git add, git commit"><strong>Commit</strong><span>save work</span></div>
+          <div class="gnode" data-step="4" style="left:709px; top:95px; min-width:150px;" data-cap="git push origin fix-typo — the branch appears on GitHub"><strong>Push</strong><span>upload</span></div>
+          <div class="gnode" data-step="5" style="left:912px; top:95px; min-width:150px;" data-cap="Open a Pull Request: “please merge my branch into main”"><strong>Pull request</strong><span>propose</span></div>
+          <div class="gnode" data-step="6" style="left:1115px; top:95px; min-width:150px;" data-cap="Teammates review and comment; GitHub Actions runs the tests automatically"><strong>Review</strong><span>+ auto tests</span></div>
+          <div class="gnode" data-step="7" style="left:1318px; top:95px; min-width:150px;" data-cap="Approved → Merge. Your code is now in main (and can auto-deploy)"><strong>Merge</strong><span>into main ✓</span></div>
+        </div>
+        <div class="walk-cap reveal" style="--d:2" data-idle="This is how every open-source project and tech company ships code."></div>
+        <div class="grid-4 reveal" style="--d:3; grid-template-columns:repeat(5,1fr); gap:14px;">
+          <div class="card flat col tc" style="align-items:center; padding:16px;"><div class="tile green"><i data-lucide="folder-git-2"></i></div><strong>Repositories</strong><span class="small muted">code + history</span></div>
+          <div class="card flat col tc" style="align-items:center; padding:16px;"><div class="tile blue"><i data-lucide="git-pull-request"></i></div><strong>Pull requests</strong><span class="small muted">review changes</span></div>
+          <div class="card flat col tc" style="align-items:center; padding:16px;"><div class="tile amber"><i data-lucide="circle-dot"></i></div><strong>Issues</strong><span class="small muted">bugs &amp; tasks</span></div>
+          <div class="card flat col tc" style="align-items:center; padding:16px;"><div class="tile purple"><i data-lucide="play"></i></div><strong>Actions</strong><span class="small muted">CI/CD automation</span></div>
+          <div class="card flat col tc" style="align-items:center; padding:16px;"><div class="tile black"><i data-lucide="globe"></i></div><strong>Pages</strong><span class="small muted">free website hosting</span></div>
+        </div>
+      </div>
+      <aside class="notes">Walk the pull-request flow. Tip for students: your GitHub profile is your portfolio — recruiters look at it.</aside>
+    </section>
+
+    <section class="slide" data-section="01 · Git" data-topic="5" data-title="Git cheat sheet">
+      <div class="slide-header">
+        <span class="kicker">01 · Git &amp; GitHub</span>
+        <h2 class="slide-title">Your Git <span class="green-text">cheat sheet</span></h2>
+        <p class="slide-desc">About ten commands cover 95% of everyday work.</p>
+      </div>
+      <div class="slide-content">
+        <div class="grid-2 wide-left" style="align-items:stretch;">
+          <div class="term reveal left" style="--d:1">
+            <div class="term-bar"><div class="dots"><b></b><b></b><b></b></div><span>git cheat sheet</span></div>
+            <pre style="font-size:17px;"><span class="k">git init</span>                  <span class="cm"># start tracking a folder</span>
+<span class="k">git clone</span> &lt;url&gt;           <span class="cm"># copy a repo from GitHub</span>
+<span class="k">git status</span>                <span class="cm"># what changed?</span>
+<span class="k">git add</span> .                 <span class="cm"># stage changes</span>
+<span class="k">git commit</span> -m <span class="s-str">"message"</span>   <span class="cm"># save a snapshot</span>
+<span class="k">git push</span>                  <span class="cm"># upload commits</span>
+<span class="k">git pull</span>                  <span class="cm"># download teammates' work</span>
+<span class="k">git switch</span> -c &lt;branch&gt;   <span class="cm"># new branch</span>
+<span class="k">git merge</span> &lt;branch&gt;        <span class="cm"># combine branches</span>
+<span class="k">git log</span> --oneline         <span class="cm"># view history</span></pre>
+          </div>
+          <div class="col seq" data-seq-ms="1100">
+            <div class="layer s card flat row" style="padding:16px 20px;"><div class="tile green"><i data-lucide="footprints"></i></div><div><strong>Commit small &amp; often</strong><p class="small">One idea per commit</p></div></div>
+            <div class="layer s card flat row" style="padding:16px 20px;"><div class="tile blue"><i data-lucide="message-square-text"></i></div><div><strong>Write clear messages</strong><p class="small">"Fix login redirect", not "stuff"</p></div></div>
+            <div class="layer s card flat row" style="padding:16px 20px;"><div class="tile red"><i data-lucide="eye-off"></i></div><div><strong>Never commit secrets</strong><p class="small">Put <code class="mono">.env</code> in <code class="mono">.gitignore</code></p></div></div>
+            <div class="layer s card flat row" style="padding:16px 20px;"><div class="tile amber"><i data-lucide="refresh-cw"></i></div><div><strong>Pull before you push</strong><p class="small">Avoid surprise conflicts</p></div></div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Students can photograph this slide. Stress .gitignore for .env — leaked API keys on GitHub get scraped by bots within minutes.</aside>
     </section>
 
     <section class="slide" data-section="01 · Deploy" data-topic="5" data-anim="lb" data-title="Deploy & scale">
