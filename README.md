@@ -1,73 +1,60 @@
-# 🧠 AI RESEARCH AGENT — Technical Workshop Presentation
-### Research Across Your Documents and the Live Web
-**Presented by GrowSphere Community**
+# 🧠 AI Research Agent — Workshop Deck
+### Research across your documents and the live web · GrowSphere Community
 
----
+An animated, 60-slide HTML presentation. Every concept has its own live visual: a request travelling through a backend, a cache hit vs miss, a load balancer, a vector scatter plot, an agent router, n8n workflows that run node by node, and more.
 
-## 🌟 Quick Start (How to Run)
+## Run it
 
-1. **Double-Click**: Open [`index.html`](file:///c:/Users/Birendra%20Archana/Desktop/tp1/index.html) in any modern web browser (Google Chrome, Microsoft Edge, Brave, Safari).
-2. **Offline Ready**: No internet connection or npm install required. All styles, fonts, icons, and audio synthesis are self-contained.
+Open `index.html` in Chrome, Edge, Brave or Safari. Nothing to install.
+Fonts and icons load from Google Fonts / jsDelivr, so connect once or serve it locally:
 
----
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000
+```
 
-## ⌨️ Presentation Keyboard Shortcuts
+The deck renders on a fixed 1600×900 stage that scales to any screen, so it looks the same on a laptop and a projector.
+
+## Keys
 
 | Key | Action |
 |---|---|
-| **`→` / `Space` / `Enter` / `PageDown`** | Next Slide |
-| **`←` / `Backspace` / `PageUp`** | Previous Slide |
-| **`N`** | Toggle Presenter Notes Drawer (scripts & cues for all 44 slides) |
-| **`G`** | Slide Overview Grid (jump to any slide instantly) |
-| **`T`** | Start / Pause Live Session Stopwatch Timer |
-| **`F`** | Toggle Fullscreen Mode |
-| **`L`** | Switch Theme (Light Canvas / Dark Mode) |
-| **`Home` / `End`** | Jump to First / Last Slide |
-| **Touch Swipe** | Swipe left/right on mobile and tablets |
+| `→` `Space` `Enter` `PageDown` | Next (reveals the slide's punchline first, then advances) |
+| `←` `Backspace` `PageUp` | Previous |
+| `Home` / `End` | First / last slide |
+| `G` | Slide overview grid |
+| `N` | Presenter notes |
+| `T` | Session timer (starts on first click) |
+| `F` | Fullscreen |
+| `L` | Light / dark theme (remembered) |
+| Swipe | Next / previous on touch devices |
 
----
+The URL hash tracks the slide (`index.html#28`), so a refresh keeps your place.
 
-## 👥 Speaker Structure & Timetable (60 Minutes)
+## Structure (60 slides)
 
-* **Part 0 (Slides 1–6)**: GrowSphere Community & Speaker Introductions
-* **Part 1 (Slides 7–22) // Dev Kanojiya (20 Mins)**: Web Fundamentals → React Components → APIs → FastAPI Backend Security
-* **Part 2 (Slides 23–30) // Ashish Parab (20 Mins)**: LLMs → 100-Page Problem → RAG (Open-Book Exam) → Embeddings → ChromaDB
-* **Part 3 (Slides 31–40) // Aditya Sabnis (20 Mins)**: Tools → Live Web (Tavily) → Autonomous Agents → LangGraph Workflows & Retry Loops
-* **Final (Slides 41–44) // All Instructors (10 Mins)**: Master Architecture Blueprint & 11-Step Hands-On Live Coding Sprint
+| Slides | Part | Speaker |
+|---|---|---|
+| 1–6 | GrowSphere, speakers, hero, roadmap | — |
+| 7–27 | **Part 01 · How Apps Really Work**: React in 2 min, then a generic backend deep dive (client–server, APIs, HTTP, REST, status codes, layers, monolith vs microservices, SQL/NoSQL, caching, queues, auth, security, deploy & scale) | — |
+| 28–36 | **Part 02 · Give the AI Knowledge**: LLM, the 100-page problem, RAG, embeddings, vector DBs | Ashish Parab |
+| 37–45 | **Part 03 · Give the AI Capabilities**: tools, agents, LangGraph, agent patterns (routing, retry) | Aditya Sabnis |
+| 46–55 | **Part 04 · Automate with n8n**: concepts, triggers, AI Agent node, RAG workflows, code vs n8n, project ideas, Telegram bot walkthrough, setup | — |
+| 56–60 | **Part 05 · Let's Build It**: blueprint, journey, 11-step sprint | All instructors |
 
----
-
-## 🚀 How to Share with Attendees
-
-### 1. Instant 1-Click ZIP
-Share the file **`AI-Research-Agent-Presentation.zip`** located in this directory via WhatsApp, Google Drive, or Telegram.
-
-### 2. Free Web Hosting (Vercel / Netlify)
-- Drag this folder directly onto [app.netlify.com/drop](https://app.netlify.com/drop) for an instant live URL.
-- Or push to GitHub and deploy to Vercel in 30 seconds.
-
-### 3. Local Wi-Fi Presentation Server
-Run in PowerShell:
-```powershell
-python -m http.server 8000
-```
-Attendees can open `http://<your-ip>:8000` on their devices.
-
----
-
-## 📁 Project Structure
+## Files
 
 ```text
-├── index.html             # Main 44-slide interactive presentation
-├── PRESENTATION.md        # Full speaker script & delivery handbook
-├── README.md              # Workshop quick-start guide & cheatsheet
-├── styles.css             # GrowSphere design system stylesheet
-├── app.js                 # Slide engine & Web Audio synthesizer
-└── assets/                # Dedicated speaker photos & community graphics
-    ├── growsphere_overview.png
-    ├── dev_kanojiya.png
-    ├── ashish_parab.png
-    ├── aditya_sabnis.jpg
-    ├── devendra.jpeg
-    └── growsphere_logo.jpg
+├── index.html        # slides (each slide carries its own <aside class="notes">)
+├── styles.css        # GrowSphere design system + all animation styles
+├── app.js            # stage scaling, navigation, fragments, per-slide animations
+├── PRESENTATION.md   # speaker handbook
+└── assets/           # community + speaker cards, logo
 ```
+
+## Editing
+
+- **Add a slide:** copy any `<section class="slide">`. Numbering, grid and notes update automatically.
+- **Step-by-step reveal:** add `class="fragment"` to any element.
+- **Entrance animation:** `class="reveal"` (+ `pop`/`left`/`right`), stagger with `style="--d:2"`.
+- **Auto-highlight a sequence:** put `class="seq"` on a container and `class="s"` on its items.
+- **Custom animation:** set `data-anim="name"` on the slide and add `name(slide)` to `anims` in `app.js`. It starts on enter and stops automatically on leave.
